@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillNova - Salary Insights</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a111a; color: #fff; min-height: 100vh; padding: 100px 40px 40px; }
+  .navbar { background: #0b131e; border-bottom: 1px solid #151e2d; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; cursor: pointer; text-decoration: none; color: #fff; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0a111a; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-link { color: #7a8699; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s; padding: 8px 16px; border-radius: 8px; }
+  .nav-link:hover,.nav-link.active { color: #00bfff; background: rgba(0, 191, 255, 0.1); }
+  .user-section { display: flex; align-items: center; gap: 20px; }
+  .user-name { font-size: 14px; font-weight: 600; color: #00bfff; }
+  .logout-btn { padding: 8px 20px; background: transparent; border: 1px solid #1f2937; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .logout-btn:hover { background: #1f2937; border-color: #00bfff; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .page-header { margin-bottom: 40px; text-align: center; }
+  .page-title { font-size: 36px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-subtitle { font-size: 16px; color: #7a8699; }
+  .controls { display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+  .select-group { flex: 1; min-width: 250px; }
+  .select-label { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #7a8699; }
+  .select-input { width: 100%; padding: 14px; background: #0b131e; border: 1px solid #1f2937; border-radius: 10px; color: #fff; font-size: 15px; cursor: pointer; }
+  .select-input:focus { outline: none; border-color: #00bfff; }
+  .country-tabs { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .country-btn { padding: 10px 24px; background: #0b131e; border: 1px solid #1f2937; border-radius: 10px; color: #7a8699; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .country-btn:hover,.country-btn.active { background: rgba(0, 191, 255, 0.1); border-color: #00bfff; color: #00bfff; }
+  .salary-card { background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%); border: 1px solid #151e2d; border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+  .salary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+  .job-title { font-size: 24px; font-weight: 700; }
+  .avg-salary { font-size: 32px; font-weight: 800; color: #00bfff; }
+  .salary-table { width: 100%; border-collapse: collapse; }
+  .salary-table th { text-align: left; padding: 16px; font-size: 13px; font-weight: 600; color: #7a8699; text-transform: uppercase; border-bottom: 1px solid #1f2937; }
+  .salary-table td { padding: 20px 16px; font-size: 15px; border-bottom: 1px solid #1f2937; }
+  .salary-table tr:last-child td { border-bottom: none; }
+  .salary-range { font-weight: 700; font-size: 16px; color: #00bfff; }
+  .growth-badge { display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 20px; font-size: 12px; font-weight: 600; color: #10b981; }
+  .info-box { background: rgba(0, 191, 255, 0.05); border: 1px solid rgba(0, 191, 255, 0.2); border-radius: 12px; padding: 20px; margin-top: 24px; }
+  .info-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #00bfff; }
+  .info-text { font-size: 14px; color: #7a8699; line-height: 1.6; }
+    @media (max-width: 768px) {.nav-links { display: none; }.controls { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <div class="logo-icon">S</div>
+      <span>SkillNova</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="skills.html">Skills</a>
+      <a class="nav-link" href="roadmap.html">Roadmap</a>
+      <a class="nav-link" href="progress.html">Progress</a>
+      <a class="nav-link active" href="salary.html">Salary</a>
+      <a class="nav-link" href="personality.html">Personality</a>
+    </div>
+    <div class="user-section">
+      <span class="user-name" id="userName">User</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Salary Insights</h1>
+      <p class="page-subtitle">Compare salaries across countries and experience levels</p>
+    </div>
+
+    <div class="controls">
+      <div class="select-group">
+        <div class="select-label">Select Career Goal</div>
+        <select class="select-input" id="careerSelect" onchange="updateSalary()">
+          <option value="frontend">Frontend Developer</option>
+          <option value="backend">Backend Developer</option>
+          <option value="fullstack">Full Stack Developer</option>
+          <option value="data">Data Scientist</option>
+          <option value="mobile">Mobile Developer</option>
+          <option value="devops">DevOps Engineer</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="country-tabs">
+      <button class="country-btn active" onclick="selectCountry('india', this)">🇮🇳 India</button>
+      <button class="country-btn" onclick="selectCountry('us', this)">🇺🇸 United States</button>
+      <button class="country-btn" onclick="selectCountry('dubai', this)">🇦🇪 Dubai</button>
+      <button class="country-btn" onclick="selectCountry('canada', this)">🇨🇦 Canada</button>
+    </div>
+
+    <div class="salary-card">
+      <div class="salary-header">
+        <h2 class="job-title" id="jobTitle">Frontend Developer</h2>
+        <div class="avg-salary" id="avgSalary">₹8 LPA</div>
+      </div>
+
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>Experience Level</th>
+            <th>Salary Range</th>
+            <th>Market Growth</th>
+          </tr>
+        </thead>
+        <tbody id="salaryTableBody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <div class="info-title">💡 Pro Tip</div>
+      <div class="info-text" id="proTip">Frontend Developers with React + TypeScript skills earn 30% higher than average. Focus on modern frameworks to maximize your salary potential.</div>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn')!== 'true') {
+      window.location.href = 'home.html';
+    }
+
+    document.getElementById('userName').textContent = localStorage.getItem('userName') || 'User';
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'home.html';
+    }
+
+    const salaryData = {
+      frontend: {
+        name: 'Frontend Developer',
+        india: { avg: '₹8 LPA', fresher: '₹4-6 LPA', mid: '₹8-15 LPA', senior: '₹15-30 LPA', growth: '+25%' },
+        us: { avg: '$95k', fresher: '$70-90k', mid: '$95-130k', senior: '$130-180k', growth: '+22%' },
+        dubai: { avg: '25k AED', fresher: '15-20k AED', mid: '25-35k AED', senior: '35-50k AED', growth: '+28%' },
+        canada: { avg: 'CAD 85k', fresher: 'CAD 60-75k', mid: 'CAD 85-110k', senior: 'CAD 110-140k', growth: '+20%' },
+        tip: 'Frontend Developers with React + TypeScript skills earn 30% higher than average. Focus on modern frameworks to maximize your salary potential.'
+      },
+      backend: {
+        name: 'Backend Developer',
+        india: { avg: '₹10 LPA', fresher: '₹5-7 LPA', mid: '₹10-18 LPA', senior: '₹18-35 LPA', growth: '+27%' },
+        us: { avg: '$110k', fresher: '$80-100k', mid: '$110-150k', senior: '$150-200k', growth: '+24%' },
+        dubai: { avg: '30k AED', fresher: '18-25k AED', mid: '30-40k AED', senior: '40-60k AED', growth: '+30%' },
+        canada: { avg: 'CAD 95k', fresher: 'CAD 70-85k', mid: 'CAD 95-125k', senior: 'CAD 125-160k', growth: '+23%' },
+        tip: 'Backend roles with Cloud (AWS/Azure) + Microservices experience command premium salaries. Learn system design early.'
+      },
+      fullstack: {
+        name: 'Full Stack Developer',
+        india: { avg: '₹12 LPA', fresher: '₹6-9 LPA', mid: '₹12-22 LPA', senior: '₹22-40 LPA', growth: '+32%' },
+        us: { avg: '$120k', fresher: '$85-110k', mid: '$120-160k', senior: '$160-220k', growth: '+28%' },
+        dubai: { avg: '35k AED', fresher: '20-28k AED', mid: '35-48k AED', senior: '48-70k AED', growth: '+35%' },
+        canada: { avg: 'CAD 105k', fresher: 'CAD 75-95k', mid: 'CAD 105-140k', senior: 'CAD 140-180k', growth: '+26%' },
+        tip: 'Full Stack Developers with MERN/MEAN stack + DevOps knowledge are highest paid. Build end-to-end projects.'
+      },
+      data: {
+        name: 'Data Scientist',
+        india: { avg: '₹12 LPA', fresher: '₹6-10 LPA', mid: '₹12-25 LPA', senior: '₹25-50 LPA', growth: '+35%' },
+        us: { avg: '$130k', fresher: '$90-120k', mid: '$130-180k', senior: '$180-250k', growth: '+30%' },
+        dubai: { avg: '40k AED', fresher: '25-35k AED', mid: '40-55k AED', senior: '55-80k AED', growth: '+38%' },
+        canada: { avg: 'CAD 115k', fresher: 'CAD 80-100k', mid: 'CAD 115-150k', senior: 'CAD 150-200k', growth: '+28%' },
+        tip: 'Data Scientists with ML Ops + Deep Learning skills see fastest salary growth. Focus on real-world datasets.'
+      },
+      mobile: {
+        name: 'Mobile Developer',
+        india: { avg: '₹9 LPA', fresher: '₹4-7 LPA', mid: '₹9-16 LPA', senior: '₹16-32 LPA', growth: '+24%' },
+        us: { avg: '$105k', fresher: '$75-95k', mid: '$105-140k', senior: '$140-190k', growth: '+21%' },
+        dubai: { avg: '28k AED', fresher: '16-22k AED', mid: '28-38k AED', senior: '38-55k AED', growth: '+26%' },
+        canada: { avg: 'CAD 90k', fresher: 'CAD 65-80k', mid: 'CAD 90-120k', senior: 'CAD 120-150k', growth: '+22%' },
+        tip: 'Flutter + React Native developers with published apps get hired 2x faster. Build and ship to app stores.'
+      },
+      devops: {
+        name: 'DevOps Engineer',
+        india: { avg: '₹14 LPA', fresher: '₹7-10 LPA', mid: '₹14-24 LPA', senior: '₹24-45 LPA', growth: '+40%' },
+        us: { avg: '$125k', fresher: '$90-115k', mid: '$125-170k', senior: '$170-240k', growth: '+33%' },
+        dubai: { avg: '38k AED', fresher: '22-30k AED', mid: '38-50k AED', senior: '50-75k AED', growth: '+42%' },
+        canada: { avg: 'CAD 110k', fresher: 'CAD 80-100k', mid: 'CAD 110-145k', senior: 'CAD 145-190k', growth: '+31%' },
+        tip: 'DevOps with Kubernetes + AWS certifications earn top-tier salaries. Infrastructure as Code is essential.'
+      }
+    };
+
+    let currentCountry = 'india';
+    let currentCareer = localStorage.getItem('selectedCareer') || 'frontend';
+
+    document.getElementById('careerSelect').value = currentCareer;
+
+    function selectCountry(country, btn) {
+      currentCountry = country;
+      document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateSalary();
+    }
+
+    function updateSalary() {
+      currentCareer = document.getElementById('careerSelect').value;
+      localStorage.setItem('selectedCareer', currentCareer);
+
+      const data = salaryData[currentCareer];
+      const countryData = data[currentCountry];
+
+      document.getElementById('jobTitle').textContent = data.name;
+      document.getElementById('avgSalary').textContent = countryData.avg;
+      document.getElementById('proTip').textContent = data.tip;
+
+      const tbody = document.getElementById('salaryTableBody');
+      tbody.innerHTML = `
+        <tr>
+          <td>Fresher (0-2 years)</td>
+          <td><span class="salary-range">${countryData.fresher}</span></td>
+          <td><span class="growth-badge">${countryData.growth}</span></td>
+        </tr>
+        <tr>
+          <td>Mid-Level (2-5 years)</td>
+          <td><span class="salary-range">${countryData.mid}</span></td>
+          <td><span class="growth-badge">${countryData.growth}</span></td>
+        </tr>
+        <tr>
+          <td>Senior (5+ years)</td>
+          <td><span class="salary-range">${countryData.senior}</span></td>
+          <td><span class="growth-badge">${countryData.growth}</span></td>
+        </tr>
+      `;
+    }
+
+    updateSalary();
+  </script>
+</body>
+</html>

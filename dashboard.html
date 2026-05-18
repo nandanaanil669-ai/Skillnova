@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillNova - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a111a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    /* Navbar */
+  .navbar {
+      background: #0b131e;
+      border-bottom: 1px solid #151e2d;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+  .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+    }
+  .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #0a111a;
+    }
+  .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+  .nav-link {
+      color: #7a8699;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+  .nav-link:hover,.nav-link.active {
+      color: #00bfff;
+      background: rgba(0, 191, 255, 0.1);
+    }
+  .nav-right {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+  .user-name {
+      color: #00bfff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  .btn-logout {
+      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+  .btn-logout:hover {
+      border-color: #00bfff;
+      color: #00bfff;
+    }
+
+    /* Dashboard Content */
+  .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px;
+    }
+  .welcome-section {
+      margin-bottom: 40px;
+    }
+  .welcome-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+  .welcome-title span {
+      background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  .welcome-subtitle {
+      font-size: 16px;
+      color: #7a8699;
+    }
+
+    /* Stats Grid */
+  .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+  .stat-card {
+      background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%);
+      border: 1px solid #151e2d;
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s;
+    }
+  .stat-card:hover {
+      border-color: #00bfff;
+      transform: translateY(-4px);
+    }
+  .stat-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+  .stat-label {
+      font-size: 13px;
+      color: #7a8699;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+  .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: #00bfff;
+    }
+
+    /* Quick Actions */
+  .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+  .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+  .action-card {
+      background: #0b131e;
+      border: 1px solid #151e2d;
+      border-radius: 16px;
+      padding: 32px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+  .action-card:hover {
+      border-color: #00bfff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 191, 255, 0.2);
+    }
+  .action-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  .action-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+  .action-desc {
+      font-size: 14px;
+      color: #7a8699;
+      line-height: 1.6;
+    }
+
+    /* Chat Bot */
+  .chat-bot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 191, 255, 0.4);
+      transition: all 0.3s;
+      z-index: 99;
+    }
+  .chat-bot:hover { transform: scale(1.1); }
+
+    @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .navbar { padding: 16px 24px; }
+    .container { padding: 24px; }
+    .welcome-title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <div class="logo-icon">S</div>
+      <span>SkillNova</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link active" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="skills.html">Skills</a>
+      <a class="nav-link" href="roadmap.html">Roadmap</a>
+      <a class="nav-link" href="progress.html">Progress</a>
+      <a class="nav-link" href="salary.html">Salary</a>
+      <a class="nav-link" href="personality.html">Personality</a>
+    </div>
+    <div class="nav-right">
+      <span class="user-name" id="userName">User</span>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="welcome-section">
+      <h1 class="welcome-title">Welcome back, <span id="welcomeName">User</span>! 👋</h1>
+      <p class="welcome-subtitle">Continue your learning journey and track your progress</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-label">Courses Completed</div>
+        <div class="stat-value">12</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-label">Skills Mastered</div>
+        <div class="stat-value">8</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-label">Learning Streak</div>
+        <div class="stat-value">15 Days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-label">Achievements</div>
+        <div class="stat-value">24</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="actions-grid">
+      <a href="skills.html" class="action-card">
+        <div class="action-icon">💡</div>
+        <div class="action-title">Explore Skills</div>
+        <div class="action-desc">Discover new skills and start learning with personalized recommendations</div>
+      </a>
+      <a href="roadmap.html" class="action-card">
+        <div class="action-icon">🗺️</div>
+        <div class="action-title">View Roadmap</div>
+        <div class="action-desc">Check your personalized learning path and upcoming milestones</div>
+      </a>
+      <a href="progress.html" class="action-card">
+        <div class="action-icon">📊</div>
+        <div class="action-title">Track Progress</div>
+        <div class="action-desc">Monitor your learning analytics and performance insights</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="chat-bot" onclick="alert('SkillBot coming soon! 🤖')">🤖</div>
+
+  <script>
+    // Check if logged in
+    if (localStorage.getItem('isLoggedIn')!== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    // Display user name
+    const userName = localStorage.getItem('userName') || 'User';
+    document.getElementById('userName').textContent = userName.split(' ')[0];
+    document.getElementById('welcomeName').textContent = userName.split(' ')[0];
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userEmail');
+      alert('Logged out successfully!');
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+</html>

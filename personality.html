@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillNova - Personality Test</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a111a; color: #fff; min-height: 100vh; padding: 100px 40px 40px; }
+ .navbar { background: #0b131e; border-bottom: 1px solid #151e2d; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+ .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; cursor: pointer; text-decoration: none; color: #fff; }
+ .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0a111a; }
+ .nav-links { display: flex; gap: 32px; align-items: center; }
+ .nav-link { color: #7a8699; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s; padding: 8px 16px; border-radius: 8px; }
+ .nav-link:hover,.nav-link.active { color: #00bfff; background: rgba(0, 191, 255, 0.1); }
+ .user-section { display: flex; align-items: center; gap: 20px; }
+ .user-name { font-size: 14px; font-weight: 600; color: #00bfff; }
+ .logout-btn { padding: 8px 20px; background: transparent; border: 1px solid #1f2937; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+ .logout-btn:hover { background: #1f2937; border-color: #00bfff; }
+ .container { max-width: 800px; margin: 0 auto; }
+ .page-header { margin-bottom: 40px; text-align: center; }
+ .page-title { font-size: 36px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+ .page-subtitle { font-size: 16px; color: #7a8699; }
+ .progress-bar { width: 100%; height: 8px; background: #1f2937; border-radius: 4px; overflow: hidden; margin-bottom: 40px; }
+ .progress-fill { height: 100%; background: linear-gradient(90deg, #00bfff 0%, #0099ff 100%); transition: width 0.3s ease; width: 0%; }
+ .question-card { background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%); border: 1px solid #151e2d; border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+ .question-number { font-size: 14px; color: #00bfff; font-weight: 600; margin-bottom: 12px; }
+ .question-text { font-size: 20px; font-weight: 600; margin-bottom: 24px; line-height: 1.5; }
+ .options { display: flex; flex-direction: column; gap: 12px; }
+ .option-btn { padding: 16px 20px; background: #0a111a; border: 2px solid #1f2937; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.3s; text-align: left; }
+ .option-btn:hover { border-color: #00bfff; background: rgba(0, 191, 255, 0.05); }
+ .option-btn.selected { border-color: #00bfff; background: rgba(0, 191, 255, 0.1); color: #00bfff; }
+ .action-btns { display: flex; gap: 12px; justify-content: center; margin-top: 32px; }
+ .btn { padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; }
+ .btn-primary { background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); color: #fff; }
+ .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 191, 255, 0.4); }
+ .btn-secondary { background: transparent; border: 1px solid #1f2937; color: #fff; }
+ .btn-secondary:hover { background: #1f2937; }
+ .result-card { background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%); border: 1px solid #151e2d; border-radius: 16px; padding: 40px; text-align: center; display: none; }
+ .result-type { font-size: 64px; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+ .result-name { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+ .result-desc { font-size: 16px; color: #7a8699; line-height: 1.6; margin-bottom: 24px; }
+ .result-traits { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
+ .trait-badge { padding: 6px 16px; background: rgba(0, 191, 255, 0.1); border: 1px solid rgba(0, 191, 255, 0.3); border-radius: 20px; font-size: 13px; font-weight: 600; color: #00bfff; }
+ .career-suggestions { text-align: left; background: rgba(0, 191, 255, 0.05); border: 1px solid rgba(0, 191, 255, 0.2); border-radius: 12px; padding: 20px; margin-top: 24px; }
+ .career-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #00bfff; }
+ .career-list { list-style: none; }
+ .career-list li { padding: 8px 0; font-size: 14px; color: #7a8699; }
+ .career-list li:before { content: "→ "; color: #00bfff; font-weight: 700; }
+    @media (max-width: 768px) {.nav-links { display: none; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <div class="logo-icon">S</div>
+      <span>SkillNova</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="skills.html">Skills</a>
+      <a class="nav-link" href="roadmap.html">Roadmap</a>
+      <a class="nav-link" href="progress.html">Progress</a>
+      <a class="nav-link" href="salary.html">Salary</a>
+      <a class="nav-link active" href="personality.html">Personality</a>
+    </div>
+    <div class="user-section">
+      <span class="user-name" id="userName">User</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Personality Test</h1>
+      <p class="page-subtitle">Discover your MBTI type and matching careers</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <div id="testSection">
+      <div class="question-card">
+        <div class="question-number" id="questionNum">Question 1 of 12</div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+      </div>
+      <div class="action-btns">
+        <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">Previous</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
+      </div>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-type" id="resultType">INTJ</div>
+      <div class="result-name" id="resultName">The Architect</div>
+      <div class="result-desc" id="resultDesc"></div>
+      <div class="result-traits" id="resultTraits"></div>
+      <div class="career-suggestions">
+        <div class="career-title">🎯 Best Matching Careers</div>
+        <ul class="career-list" id="careerList"></ul>
+      </div>
+      <div class="action-btns" style="margin-top: 32px;">
+        <button class="btn btn-primary" onclick="retakeTest()">Retake Test</button>
+        <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'">Go to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn')!== 'true') {
+      window.location.href = 'home.html';
+    }
+
+    document.getElementById('userName').textContent = localStorage.getItem('userName') || 'User';
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'home.html';
+    }
+
+    const questions = [
+      { q: "You prefer to spend your free time:", a: "With a few close friends", b: "At a large social gathering", dimension: "EI", scoreA: "I", scoreB: "E" },
+      { q: "When solving problems, you rely more on:", a: "Facts and details", b: "Patterns and possibilities", dimension: "SN", scoreA: "S", scoreB: "N" },
+      { q: "You make decisions based on:", a: "Logic and objectivity", b: "People and emotions", dimension: "TF", scoreA: "T", scoreB: "F" },
+      { q: "You prefer your work to be:", a: "Planned and structured", b: "Flexible and spontaneous", dimension: "JP", scoreA: "J", scoreB: "P" },
+      { q: "At parties, you:", a: "Talk to people you know", b: "Meet new people", dimension: "EI", scoreA: "I", scoreB: "E" },
+      { q: "You are more interested in:", a: "What is actual and real", b: "What is possible and new", dimension: "SN", scoreA: "S", scoreB: "N" },
+      { q: "When giving feedback, you are:", a: "Honest and direct", b: "Tactful and kind", dimension: "TF", scoreA: "T", scoreB: "F" },
+      { q: "You prefer to:", a: "Have things decided", b: "Keep options open", dimension: "JP", scoreA: "J", scoreB: "P" },
+      { q: "You get energy from:", a: "Quiet time alone", b: "Being around people", dimension: "EI", scoreA: "I", scoreB: "E" },
+      { q: "You trust:", a: "Experience", b: "Intuition", dimension: "SN", scoreA: "S", scoreB: "N" },
+      { q: "You value:", a: "Justice and fairness", b: "Harmony and mercy", dimension: "TF", scoreA: "T", scoreB: "F" },
+      { q: "You like to:", a: "Make lists and plans", b: "Go with the flow", dimension: "JP", scoreA: "J", scoreB: "P" }
+    ];
+
+    const types = {
+      INTJ: { name: "The Architect", desc: "Strategic, analytical, and independent. You excel at seeing the big picture and creating long-term plans.", traits: ["Strategic", "Independent", "Analytical"], careers: ["Software Architect", "Data Scientist", "Systems Analyst", "Research Scientist"] },
+      INTP: { name: "The Logician", desc: "Innovative, curious, and logical. You love solving complex problems and exploring theories.", traits: ["Logical", "Curious", "Abstract"], careers: ["Software Developer", "Data Analyst", "Researcher", "Professor"] },
+      ENTJ: { name: "The Commander", desc: "Bold, decisive, and natural leader. You organize people and resources to achieve goals.", traits: ["Leader", "Strategic", "Decisive"], careers: ["Product Manager", "Engineering Manager", "CEO", "Consultant"] },
+      ENTP: { name: "The Debater", desc: "Smart, curious, and outspoken. You love debating ideas and challenging the status quo.", traits: ["Innovative", "Energetic", "Charismatic"], careers: ["Entrepreneur", "Marketing Manager", "Consultant", "Product Designer"] },
+      INFJ: { name: "The Advocate", desc: "Insightful, principled, and idealistic. You seek meaning and help others grow.", traits: ["Empathetic", "Insightful", "Idealistic"], careers: ["UX Designer", "HR Manager", "Counselor", "Writer"] },
+      INFP: { name: "The Mediator", desc: "Creative, empathetic, and authentic. You follow your values and seek harmony.", traits: ["Creative", "Empathetic", "Idealistic"], careers: ["Content Creator", "UI/UX Designer", "Writer", "Artist"] },
+      ENFJ: { name: "The Protagonist", desc: "Charismatic, inspiring, and natural teacher. You help others reach their potential.", traits: ["Charismatic", "Empathetic", "Leader"], careers: ["Team Lead", "Teacher", "HR Director", "Coach"] },
+      ENFP: { name: "The Campaigner", desc: "Enthusiastic, creative, and sociable. You see possibilities and inspire others.", traits: ["Creative", "Energetic", "Optimistic"], careers: ["Marketing Specialist", "Content Creator", "Event Manager", "Designer"] },
+      ISTJ: { name: "The Logistician", desc: "Practical, reliable, and organized. You value tradition and work systematically.", traits: ["Organized", "Reliable", "Practical"], careers: ["QA Engineer", "Database Admin", "Accountant", "Project Manager"] },
+      ISFJ: { name: "The Defender", desc: "Dedicated, warm, and protective. You serve others and maintain stability.", traits: ["Loyal", "Caring", "Organized"], careers: ["Support Engineer", "Teacher", "Nurse", "HR Specialist"] },
+      ESTJ: { name: "The Executive", desc: "Organized, direct, and dedicated. You manage people and processes efficiently.", traits: ["Organized", "Practical", "Leader"], careers: ["Operations Manager", "Project Manager", "Business Analyst", "Manager"] },
+      ESFJ: { name: "The Consul", desc: "Caring, social, and popular. You help others and create harmony in groups.", traits: ["Sociable", "Caring", "Organized"], careers: ["Customer Success", "Sales Manager", "Teacher", "Event Coordinator"] },
+      ISTP: { name: "The Virtuoso", desc: "Practical, hands-on, and spontaneous. You master tools and solve problems.", traits: ["Practical", "Adaptable", "Logical"], careers: ["DevOps Engineer", "Network Admin", "Mechanic", "Developer"] },
+      ISFP: { name: "The Adventurer", desc: "Flexible, charming, and artistic. You live in the moment and value aesthetics.", traits: ["Artistic", "Flexible", "Sensitive"], careers: ["Graphic Designer", "Video Editor", "Photographer", "Artist"] },
+      ESTP: { name: "The Entrepreneur", desc: "Energetic, perceptive, and bold. You take risks and live in the moment.", traits: ["Energetic", "Practical", "Bold"], careers: ["Sales Executive", "Entrepreneur", "Marketing", "Real Estate"] },
+      ESFP: { name: "The Entertainer", desc: "Spontaneous, energetic, and enthusiastic. You bring joy and excitement.", traits: ["Energetic", "Sociable", "Spontaneous"], careers: ["Social Media Manager", "Event Planner", "Sales", "Actor"] }
+    };
+
+    let currentQuestion = 0;
+    let answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+    let selectedAnswer = null;
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('questionNum').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      document.getElementById('questionText').textContent = q.q;
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = `
+        <button class="option-btn" onclick="selectOption('A', this)">${q.a}</button>
+        <button class="option-btn" onclick="selectOption('B', this)">${q.b}</button>
+      `;
+
+      document.getElementById('progressBar').style.width = `${((currentQuestion) / questions.length) * 100}%`;
+      document.getElementById('prevBtn').style.display = currentQuestion > 0? 'block' : 'none';
+      document.getElementById('nextBtn').disabled = true;
+      selectedAnswer = null;
+    }
+
+    function selectOption(choice, btn) {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedAnswer = choice;
+      document.getElementById('nextBtn').disabled = false;
+    }
+
+    function nextQuestion() {
+      if (!selectedAnswer) return;
+
+      const q = questions[currentQuestion];
+      const score = selectedAnswer === 'A'? q.scoreA : q.scoreB;
+      answers[score]++;
+
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+      }
+    }
+
+    function showResult() {
+      const type =
+        (answers.E > answers.I? 'E' : 'I') +
+        (answers.S > answers.N? 'S' : 'N') +
+        (answers.T > answers.F? 'T' : 'F') +
+        (answers.J > answers.P? 'J' : 'P');
+
+      const result = types[type];
+
+      document.getElementById('testSection').style.display = 'none';
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('progressBar').style.width = '100%';
+
+      document.getElementById('resultType').textContent = type;
+      document.getElementById('resultName').textContent = result.name;
+      document.getElementById('resultDesc').textContent = result.desc;
+
+      const traitsContainer = document.getElementById('resultTraits');
+      traitsContainer.innerHTML = result.traits.map(t => `<span class="trait-badge">${t}</span>`).join('');
+
+      const careerList = document.getElementById('careerList');
+      careerList.innerHTML = result.careers.map(c => `<li>${c}</li>`).join('');
+
+      localStorage.setItem('mbtiType', type);
+    }
+
+    function retakeTest() {
+      currentQuestion = 0;
+      answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+      document.getElementById('testSection').style.display = 'block';
+      document.getElementById('resultCard').style.display = 'none';
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

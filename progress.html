@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillNova - Progress Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a111a; color: #fff; min-height: 100vh; padding: 100px 40px 40px; }
+  .navbar { background: #0b131e; border-bottom: 1px solid #151e2d; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; cursor: pointer; text-decoration: none; color: #fff; }
+  .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0a111a; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-link { color: #7a8699; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s; padding: 8px 16px; border-radius: 8px; }
+  .nav-link:hover,.nav-link.active { color: #00bfff; background: rgba(0, 191, 255, 0.1); }
+  .user-section { display: flex; align-items: center; gap: 20px; }
+  .user-name { font-size: 14px; font-weight: 600; color: #00bfff; }
+  .logout-btn { padding: 8px 20px; background: transparent; border: 1px solid #1f2937; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+  .logout-btn:hover { background: #1f2937; border-color: #00bfff; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .page-header { margin-bottom: 40px; text-align: center; }
+  .page-title { font-size: 36px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #00bfff 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-subtitle { font-size: 16px; color: #7a8699; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 40px; }
+  .stat-card { background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%); border: 1px solid #151e2d; border-radius: 16px; padding: 24px; }
+  .stat-icon { font-size: 32px; margin-bottom: 12px; }
+  .stat-value { font-size: 32px; font-weight: 800; margin-bottom: 4px; color: #00bfff; }
+  .stat-label { font-size: 14px; color: #7a8699; }
+  .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; }
+  .chart-card { background: linear-gradient(135deg, #0b131e 0%, #0a111a 100%); border: 1px solid #151e2d; border-radius: 16px; padding: 24px; }
+  .chart-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .progress-bar { width: 100%; height: 12px; background: #1f2937; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #00bfff 0%, #0099ff 100%); transition: width 0.5s ease; }
+  .progress-text { font-size: 14px; color: #7a8699; text-align: right; }
+  .empty-state { text-align: center; padding: 60px 20px; color: #7a8699; }
+    @media (max-width: 768px) {.nav-links { display: none; }.charts-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="home.html" class="logo">
+      <div class="logo-icon">S</div>
+      <span>SkillNova</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="skills.html">Skills</a>
+      <a class="nav-link" href="roadmap.html">Roadmap</a>
+      <a class="nav-link active" href="progress.html">Progress</a>
+      <a class="nav-link" href="salary.html">Salary</a>
+      <a class="nav-link" href="personality.html">Personality</a>
+    </div>
+    <div class="user-section">
+      <span class="user-name" id="userName">User</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Progress Tracker</h1>
+      <p class="page-subtitle">Track your learning journey and stay motivated</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="skillsCount">0</div>
+        <div class="stat-label">Skills Added</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value" id="stepsCompleted">0</div>
+        <div class="stat-label">Roadmap Steps Done</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value" id="overallProgress">0%</div>
+        <div class="stat-label">Overall Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-value" id="daysActive">1</div>
+        <div class="stat-label">Days Active</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3 class="chart-title">Overall Progress</h3>
+        <canvas id="progressChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3 class="chart-title">Skills Distribution</h3>
+        <canvas id="skillsChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top: 24px;">
+      <h3 class="chart-title">Current Roadmap Progress</h3>
+      <div id="roadmapProgress"></div>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('isLoggedIn')!== 'true') {
+      window.location.href = 'home.html';
+    }
+
+    document.getElementById('userName').textContent = localStorage.getItem('userName') || 'User';
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'home.html';
+    }
+
+    // Load data from localStorage
+    const addedSkills = JSON.parse(localStorage.getItem('addedSkills')) || [];
+    const currentGoal = 'frontend'; // Based on your screenshot
+    const completedSteps = JSON.parse(localStorage.getItem('completedSteps_' + currentGoal)) || [];
+    const totalSteps = 5; // Frontend has 5 steps
+
+    // Update stats
+    document.getElementById('skillsCount').textContent = addedSkills.length;
+    document.getElementById('stepsCompleted').textContent = completedSteps.length;
+
+    const progressPercent = Math.round((completedSteps.length / totalSteps) * 100);
+    document.getElementById('overallProgress').textContent = progressPercent + '%';
+
+    // Days active
+    const joinDate = localStorage.getItem('joinDate') || new Date().toISOString();
+    if (!localStorage.getItem('joinDate')) localStorage.setItem('joinDate', joinDate);
+    const daysActive = Math.max(1, Math.ceil((new Date() - new Date(joinDate)) / (1000 * 60 * 60 * 24)));
+    document.getElementById('daysActive').textContent = daysActive;
+
+    // Progress Chart - Doughnut
+    new Chart(document.getElementById('progressChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Remaining'],
+        datasets: [{
+          data: [completedSteps.length, totalSteps - completedSteps.length],
+          backgroundColor: ['#00bfff', '#1f2937'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#7a8699' } }
+        }
+      }
+    });
+
+    // Skills Chart - Bar
+    const skillCategories = {};
+    addedSkills.forEach(skill => {
+      const category = skill.includes('JS') || skill.includes('HTML') || skill.includes('CSS') || skill.includes('React')? 'Frontend' :
+                      skill.includes('Node') || skill.includes('Mongo') || skill.includes('SQL') || skill.includes('Express')? 'Backend' : 'Other';
+      skillCategories[category] = (skillCategories[category] || 0) + 1;
+    });
+
+    new Chart(document.getElementById('skillsChart'), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(skillCategories),
+        datasets: [{
+          label: 'Skills',
+          data: Object.values(skillCategories),
+          backgroundColor: '#00bfff',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        scales: {
+          y: { ticks: { color: '#7a8699' }, grid: { color: '#1f2937' } },
+          x: { ticks: { color: '#7a8699' }, grid: { display: false } }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+
+    // Roadmap Progress Bar
+    const roadmapDiv = document.getElementById('roadmapProgress');
+    if (completedSteps.length === 0) {
+      roadmapDiv.innerHTML = '<div class="empty-state">No roadmap started yet. Go to Roadmap page to begin!</div>';
+    } else {
+      roadmapDiv.innerHTML = `
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${progressPercent}%"></div>
+        </div>
+        <div class="progress-text">${completedSteps.length} of ${totalSteps} steps completed - ${progressPercent}%</div>
+      `;
+    }
+  </script>
+</body>
+</html>

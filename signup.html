@@ -82,6 +82,7 @@
             color: #0a111a; border: none; border-radius: 8px;
             font-weight: 700; font-size: 16px; cursor: pointer; margin-bottom: 20px;
         }
+        .signup-btn:hover { opacity: 0.9; }
         .login-link { text-align: center; color: #b8c5d6; font-size: 14px; }
         .login-link a { color: #00d9ff; text-decoration: none; font-weight: 600; }
         @media (max-width: 768px) {
@@ -126,46 +127,52 @@
             </form>
             
             <div class="login-link">
-                Already have an account? <a href="login.html">Login here</a>
+                Already have an account? <a href="index.html">Login here</a>
             </div>
         </div>
     </div>
 
     <script>
-    // DEFAULT ACCOUNT ADD CHEYYUNNA CODE - IVIDE ADIKKANAM
-    if (!localStorage.getItem('users')) {
-        let defaultUsers = [
-            {
-                name: "Nandana",
-                email: "nandana@skillnova.com", 
-                password: "nandana123"
-            }
-        ];
-        localStorage.setItem('users', JSON.stringify(defaultUsers));
-    }
-
-    // SIGNUP FORM LOGIC
-    document.getElementById('signupForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        
-        if(users.find(u => u.email === email)) {
-            alert('Email already registered! Please login.');
-            window.location.href = 'login.html';
-            return;
+        // DEFAULT ACCOUNT AUTO CREATE
+        if (!localStorage.getItem('users')) {
+            let defaultUsers = [
+                {
+                    name: "Nandana",
+                    email: "nandana@skillnova.com", 
+                    password: "nandana123"
+                }
+            ];
+            localStorage.setItem('users', JSON.stringify(defaultUsers));
+            console.log('Default account created');
         }
-        
-        users.push({name, email, password});
-        localStorage.setItem('users', JSON.stringify(users));
-        
-        alert('Signup Successful! Now login with your account 🔥');
-        window.location.href = 'login.html';
-    });
+
+        // SIGNUP FORM LOGIC
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!name || !email || !password) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            if(users.find(u => u.email === email)) {
+                alert('Email already registered! Please login.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            users.push({ name, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Signup Successful! Now login 🔥');
+            window.location.href = 'index.html';
+        });
     </script>
 </body>
 </html>

@@ -6,11 +6,7 @@
     <title>SkillNova - Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: #0a111a;
@@ -19,91 +15,136 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
-        .container {
-            background: #1a2332;
-            padding: 40px;
-            border-radius: 12px;
+        .signup-container {
+            display: flex;
+            max-width: 1100px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            background: #1a2332;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #00d9ff;
+        .left-section {
+            flex: 1;
+            padding: 60px;
+            background: linear-gradient(135deg, #0a111a 0%, #1a2332 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .form-group {
+        .left-section h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
             margin-bottom: 20px;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #b8c5d6;
+        .left-section h1 span { color: #00d9ff; }
+        .left-section p { color: #b8c5d6; font-size: 16px; line-height: 1.6; }
+        .right-section {
+            flex: 1;
+            padding: 60px;
+            background: #1a2332;
         }
-        input {
-            width: 100%;
-            padding: 12px;
-            background: #0a111a;
-            border: 1px solid #2a3441;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
+        .right-section h2 { font-size: 28px; margin-bottom: 8px; font-weight: 700; }
+        .subtitle { color: #b8c5d6; margin-bottom: 30px; font-size: 14px; }
+        .social-btns { display: flex; gap: 12px; margin-bottom: 25px; }
+        .social-btn {
+            flex: 1; padding: 12px; background: #0a111a;
+            border: 1px solid #2a3441; border-radius: 8px; color: #fff;
+            cursor: pointer; font-size: 14px; font-weight: 500;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        input:focus {
-            outline: none;
-            border-color: #00d9ff;
+        .divider {
+            text-align: center; color: #6b7280; margin: 25px 0;
+            font-size: 13px; position: relative;
         }
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #00d9ff;
-            color: #0a111a;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
+        .divider::before, .divider::after {
+            content: ''; position: absolute; top: 50%; width: 40%;
+            height: 1px; background: #2a3441;
         }
-        button:hover {
-            background: #00b8d9;
+        .divider::before { left: 0; } .divider::after { right: 0; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; margin-bottom: 8px; color: #b8c5d6;
+            font-size: 13px; font-weight: 600; text-transform: uppercase;
         }
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #b8c5d6;
+        .form-group input {
+            width: 100%; padding: 14px; background: #0a111a;
+            border: 1px solid #2a3441; border-radius: 8px;
+            color: #fff; font-size: 15px;
         }
-        .login-link a {
-            color: #00d9ff;
-            text-decoration: none;
+        .form-group input:focus { outline: none; border-color: #00d9ff; }
+        .signup-btn {
+            width: 100%; padding: 16px;
+            background: linear-gradient(90deg, #00d9ff 0%, #00b8d9 100%);
+            color: #0a111a; border: none; border-radius: 8px;
+            font-weight: 700; font-size: 16px; cursor: pointer; margin-bottom: 20px;
+        }
+        .login-link { text-align: center; color: #b8c5d6; font-size: 14px; }
+        .login-link a { color: #00d9ff; text-decoration: none; font-weight: 600; }
+        @media (max-width: 768px) {
+            .signup-container { flex-direction: column; }
+            .left-section { padding: 40px 30px; }
+            .left-section h1 { font-size: 36px; }
+            .right-section { padding: 40px 30px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Create Account</h1>
-        <form id="signupForm">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" id="name" required>
+    <div class="signup-container">
+        <div class="left-section">
+            <h1>Your Career<br>Journey <span>Starts</span><br>Right Here</h1>
+            <p>AI-powered skill analysis and personalized roadmap for the modern job seeker.</p>
+        </div>
+        <div class="right-section">
+            <h2>Create Account <span>🚀</span></h2>
+            <p class="subtitle">Start your career journey today</p>
+            
+            <div class="social-btns">
+                <button class="social-btn"><span style="color: #4285f4;">●</span> Google</button>
+                <button class="social-btn"><span style="color: #0a66c2;">●</span> LinkedIn</button>
             </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" required>
+            
+            <div class="divider">or continue with email</div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="Nandana" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="nandana@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="signup-btn">Create Account →</button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login here</a>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit">Sign Up</button>
-        </form>
-        <div class="login-link">
-            Already have an account? <a href="login.html">Login</a>
         </div>
     </div>
 
     <script>
+    // DEFAULT ACCOUNT ADD CHEYYUNNA CODE - IVIDE ADIKKANAM
+    if (!localStorage.getItem('users')) {
+        let defaultUsers = [
+            {
+                name: "Nandana",
+                email: "nandana@skillnova.com", 
+                password: "nandana123"
+            }
+        ];
+        localStorage.setItem('users', JSON.stringify(defaultUsers));
+    }
+
+    // SIGNUP FORM LOGIC
     document.getElementById('signupForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -113,15 +154,16 @@
         
         let users = JSON.parse(localStorage.getItem('users')) || [];
         
-        if(users.find(user => user.email === email)) {
+        if(users.find(u => u.email === email)) {
             alert('Email already registered! Please login.');
+            window.location.href = 'login.html';
             return;
         }
         
-        users.push({ name, email, password, progress: {} });
+        users.push({name, email, password});
         localStorage.setItem('users', JSON.stringify(users));
         
-        alert('Signup successful! Please login.');
+        alert('Signup Successful! Now login with your account 🔥');
         window.location.href = 'login.html';
     });
     </script>

@@ -4,261 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillNova - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: #0a0a14;
-            color: #e0e0ff;
+            font-family: 'Inter', sans-serif;
+            background: #0a111a;
+            color: #fff;
             min-height: 100vh;
-            display: flex;
-        }
-        .left-panel {
-            flex: 1;
-            background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 100%);
-            padding: 80px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .left-panel h1 {
-            font-size: 52px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-        .left-panel h1 .blue {
-            color: #00bfff;
-        }
-        .left-panel p {
-            color: #b8b8ff;
-            font-size: 16px;
-            max-width: 400px;
-            line-height: 1.6;
-        }
-        .right-panel {
-            flex: 1;
-            background: #0f0f1a;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .welcome {
-            margin-bottom: 40px;
-        }
-        .welcome h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .welcome h2 span {
-            font-size: 24px;
-        }
-        .welcome p {
-            color: #b8b8ff;
-            font-size: 14px;
-        }
-        .social-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .social-btn {
-            flex: 1;
-            padding: 12px;
-            background: #1a1a2e;
-            border: 1px solid #2a2a4e;
-            border-radius: 8px;
-            color: #e0e0ff;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            transition: 0.3s;
         }
-        .social-btn:hover {
-            border-color: #8a2be2;
-            background: #252545;
+        .container {
+            background: #1a2332;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
-        .divider {
+        h1 {
             text-align: center;
-            color: #6b6b8d;
-            font-size: 13px;
-            margin-bottom: 25px;
-            position: relative;
+            margin-bottom: 30px;
+            color: #00d9ff;
         }
-        .divider::before, .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #2a2a4e;
-        }
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
         .form-group {
             margin-bottom: 20px;
         }
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
-            color: #b8b8ff;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            color: #b8c5d6;
         }
-        .form-group input {
+        input {
             width: 100%;
-            padding: 14px;
-            background: #1a1a2e;
-            border: 1px solid #2a2a4e;
+            padding: 12px;
+            background: #0a111a;
+            border: 1px solid #2a3441;
             border-radius: 8px;
             color: #fff;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: #8a2be2;
-            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
-        }
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
             font-size: 14px;
         }
-        .remember {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #b8b8ff;
+        input:focus {
+            outline: none;
+            border-color: #00d9ff;
         }
-        .remember input {
-            width: 16px;
-            height: 16px;
-            accent-color: #8a2be2;
-        }
-        .forgot {
-            color: #00bfff;
-            text-decoration: none;
-        }
-        .forgot:hover {
-            text-decoration: underline;
-        }
-        .login-btn {
+        button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #00bfff, #8a2be2);
+            padding: 14px;
+            background: #00d9ff;
+            color: #0a111a;
             border: none;
             border-radius: 8px;
-            color: #fff;
+            font-weight: 700;
             font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            margin-top: 10px;
         }
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+        button:hover {
+            background: #00b8d9;
         }
         .signup-link {
             text-align: center;
-            margin-top: 25px;
-            color: #b8b8ff;
-            font-size: 14px;
+            margin-top: 20px;
+            color: #b8c5d6;
         }
         .signup-link a {
-            color: #00bfff;
+            color: #00d9ff;
             text-decoration: none;
-            font-weight: 600;
         }
-        @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .left-panel { padding: 40px 30px; text-align: center; }
-            .left-panel h1 { font-size: 36px; }
-            .right-panel { padding: 40px 30px; }
+        .error {
+            color: #ff4757;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="left-panel">
-        <h1>Your Career<br>Journey <span class="blue">Starts</span><br>Right Here</h1>
-        <p>AI-powered skill analysis and personalized roadmap for the modern job seeker.</p>
-    </div>
-
-    <div class="right-panel">
-        <div class="welcome">
-            <h2>Welcome back <span>👋</span></h2>
-            <p>Start building your career journey</p>
-        </div>
-
-        <div class="social-buttons">
-            <button class="social-btn">
-                <span style="color: #4285f4;">●</span> Google
-            </button>
-            <button class="social-btn">
-                <span style="color: #0a66c2;">●</span> LinkedIn
-            </button>
-        </div>
-
-        <div class="divider">or continue with email</div>
-
+    <div class="container">
+        <h1>Welcome Back</h1>
         <form id="loginForm">
             <div class="form-group">
-                <label>EMAIL ADDRESS</label>
-                <input type="email" id="email" placeholder="admin@skillnova.com" required>
+                <label>Email</label>
+                <input type="email" id="email" required>
             </div>
             <div class="form-group">
-                <label>PASSWORD</label>
-                <input type="password" id="password" placeholder="••••••••" required>
+                <label>Password</label>
+                <input type="password" id="password" required>
             </div>
-            <div class="form-options">
-                <label class="remember">
-                    <input type="checkbox" id="remember">
-                    REMEMBER ME
-                </label>
-                <a href="#" class="forgot">Forgot password?</a>
-            </div>
-            <button type="submit" class="login-btn">Login to SkillNova →</button>
+            <button type="submit">Login</button>
+            <div class="error" id="errorMsg">Invalid email or password!</div>
         </form>
-
         <div class="signup-link">
-            Don't have an account? <a href="signup.html">Create one free</a>
+            Don't have an account? <a href="signup.html">Sign Up</a>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            // Signup il create cheytha user ne check cheyyunnu
-            const savedUser = JSON.parse(localStorage.getItem('skillnovaUser'));
-            
-            if (savedUser && savedUser.email === email && savedUser.password === password) {
-                alert('Login Success! Welcome to SkillNova 🔥');
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'home.html';
-            } else if (email === 'admin@skillnova.com' && password === '123456') {
-                // Demo login
-                alert('Login Success! Welcome to SkillNova 🔥');
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'home.html';
-            } else {
-                alert('Invalid email or password! Please sign up first or use admin@skillnova.com / 123456');
-            }
-        });
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMsg = document.getElementById('errorMsg');
+        
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let user = users.find(u => u.email === email && u.password === password);
+        
+        if(user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            errorMsg.style.display = 'none';
+            window.location.href = 'dashboard.html';
+        } else {
+            errorMsg.style.display = 'block';
+        }
+    });
     </script>
 </body>
 </html>

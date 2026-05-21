@@ -9,157 +9,103 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0e27;
+            background: #0a0f1e;
             color: #fff;
             min-height: 100vh;
         }
 
-       .header {
-            background: #0f1429;
-            padding: 20px 40px;
+        /* NAVBAR - NINTE PAZHAYA TOP BAR */
+       .navbar {
+            background: #0d1425;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid #1e2a47;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
-       .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #3b82f6;
-        }
-
-       .nav-right {
+       .nav-left {
             display: flex;
             gap: 30px;
-            align-items: center;
         }
-
-       .nav-item {
-            color: #94a3b8;
+       .nav-left a {
+            color: #8b9bb4;
             text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
         }
-
-       .nav-item:hover {
+       .nav-left a:hover,.nav-left a.active {
             color: #3b82f6;
         }
-
-       .nav-item.active {
+       .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+       .nav-right span {
             color: #3b82f6;
             font-weight: 600;
         }
+       .nav-right button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+       .nav-right button:hover {
+            background: #2563eb;
+        }
 
-       .container {
+        /* DASHBOARD CONTENT */
+       .dashboard-container {
+            padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px;
         }
-
-       .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 30px;
-        }
-
-       .stat-card {
-            background: #0f1429;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 30px;
-        }
-
-       .stat-icon {
-            width: 48px;
-            height: 48px;
-            background: #3b82f6;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            font-size: 24px;
-        }
-
-       .stat-label {
-            color: #64748b;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+       .welcome-text h1 {
+            font-size: 32px;
             margin-bottom: 8px;
         }
-
-       .stat-value {
-            font-size: 42px;
-            font-weight: 700;
-            color: #3b82f6;
-            line-height: 1;
+       .welcome-text p {
+            color: #8b9bb4;
+            margin-bottom: 40px;
         }
 
-       .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            margin-top: 40px;
-        }
-
-       .actions-grid {
+       .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
-
-       .action-card {
-            background: #0f1429;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 35px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            color: #fff;
-            display: block;
+       .card {
+            background: #131b2e;
+            border: 1px solid #1e2a47;
+            border-radius: 12px;
+            padding: 25px;
         }
-
-       .action-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
-        }
-
-       .action-icon {
-            width: 56px;
-            height: 56px;
-            background: #1e293b;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-       .action-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-       .action-desc {
-            color: #64748b;
+       .card h3 {
+            color: #3b82f6;
             font-size: 14px;
-            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+       .card.number {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
         }
 
-       .chat-bot {
+        /* CHATBOT ICON */
+       .chatbot-icon {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -170,379 +116,199 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s;
             font-size: 28px;
-            z-index: 1000;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            z-index: 999;
         }
 
-       .chat-bot:hover {
-            transform: scale(1.1);
-        }
-
-       .chat-modal {
-            display: none;
+        /* CHATBOT BOX */
+       .chatbot-box {
             position: fixed;
             bottom: 100px;
             right: 30px;
             width: 380px;
-            height: 550px;
-            background: #0f1429;
-            border: 1px solid #1e293b;
+            height: 500px;
+            background: #131b2e;
+            border: 1px solid #1e2a47;
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            z-index: 1001;
+            display: none;
             flex-direction: column;
+            z-index: 998;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         }
-
-       .chat-modal.active {
-            display: flex;
-        }
-
        .chat-header {
-            background: #1e293b;
-            padding: 20px;
+            background: #3b82f6;
+            padding: 15px 20px;
             border-radius: 16px 16px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-weight: 600;
         }
-
-       .chat-header h3 {
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #fff;
-        }
-
-       .chat-close {
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-        }
-
-       .chat-close:hover {
-            color: #fff;
-        }
-
        .chat-messages {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
-
-       .message {
+       .user,.bot {
+            padding: 10px 14px;
+            border-radius: 10px;
             max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.5;
             word-wrap: break-word;
         }
-
-       .message.bot {
-            background: #1e293b;
-            align-self: flex-start;
-            color: #fff;
-        }
-
-       .message.user {
+       .user {
             background: #3b82f6;
             align-self: flex-end;
-            color: #fff;
         }
-
-       .chat-input-area {
-            padding: 20px;
-            border-top: 1px solid #1e293b;
+       .bot {
+            background: #1e2a47;
+            align-self: flex-start;
+        }
+       .chat-input {
             display: flex;
+            padding: 15px;
+            border-top: 1px solid #1e2a47;
             gap: 10px;
         }
-
-       .chat-input {
+       .chat-input input {
             flex: 1;
-            padding: 12px 16px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 14px;
-        }
-
-       .chat-input:focus {
-            outline: none;
-            border-color: #3b82f6;
-        }
-
-       .chat-send {
-            padding: 12px 20px;
-            background: #3b82f6;
-            border: none;
-            border-radius: 10px;
+            background: #0d1425;
+            border: 1px solid #1e2a47;
             color: white;
-            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 8px;
+            outline: none;
+        }
+       .chat-input button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-       .chat-send:hover {
-            background: #2563eb;
-        }
-
-       .chat-send:disabled {
-            background: #475569;
-            cursor: not-allowed;
-        }
-
-       .typing {
-            display: none;
-            padding: 12px 16px;
-            background: #1e293b;
-            border-radius: 12px;
-            align-self: flex-start;
-            max-width: 80px;
-        }
-
-       .typing.active {
-            display: block;
-        }
-
-       .typing span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #64748b;
-            border-radius: 50%;
-            margin: 0 2px;
-            animation: typing 1.4s infinite;
-        }
-
-       .typing span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-       .typing span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 768px) {
-           .container {
-                padding: 20px;
-            }
-           .header {
-                padding: 15px 20px;
-            }
-           .nav-right {
-                gap: 15px;
-            }
-           .actions-grid {
-                grid-template-columns: 1fr;
-            }
-           .chat-modal {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 90px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">SkillNova</div>
+    <!-- TOP NAV BAR -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="home.html">Home</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="#skills">Skills</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#progress">Progress</a>
+            <a href="#salary">Salary</a>
+            <a href="#personality">Personality</a>
+        </div>
         <div class="nav-right">
-            <a href="#" class="nav-item">Personality</a>
-            <a href="#" class="nav-item active" id="userName">Nandana</a>
-            <a href="#" class="nav-item" onclick="logout()">Logout</a>
+            <span id="userName">Nandana</span>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="dashboard-container">
+        <div class="welcome-text">
+            <h1>Welcome back, <span id="welcomeName">Nandana</span>! 👋</h1>
+            <p>Continue your learning journey and track your progress</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <h3>COURSES COMPLETED</h3>
+                <div class="number">12</div>
+            </div>
+            <div class="card">
+                <h3>SKILLS MASTERED</h3>
+                <div class="number">8</div>
+            </div>
+            <div class="card">
+                <h3>LEARNING STREAK</h3>
+                <div class="number">15 Days</div>
+            </div>
+            <div class="card">
+                <h3>ACHIEVEMENTS</h3>
+                <div class="number">24</div>
+            </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">🎯</div>
-                <div class="stat-label">SKILLS MASTERED</div>
-                <div class="stat-value">8</div>
-            </div>
+    <!-- CHATBOT ICON -->
+    <div class="chatbot-icon" onclick="toggleChat()">🤖</div>
 
-            <div class="stat-card">
-                <div class="stat-icon">⚡</div>
-                <div class="stat-label">LEARNING STREAK</div>
-                <div class="stat-value">15 Days</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon">🏆</div>
-                <div class="stat-label">ACHIEVEMENTS</div>
-                <div class="stat-value">24</div>
-            </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <h2 class="section-title">Quick Actions</h2>
-        <div class="actions-grid">
-            <a href="skills.html" class="action-card">
-                <div class="action-icon">🚀</div>
-                <div class="action-title">Explore Skills</div>
-                <div class="action-desc">Discover new skills and start learning today</div>
-            </a>
-
-            <a href="#" class="action-card" onclick="askBot('Give me a personalized learning roadmap'); return false;">
-                <div class="action-icon">📘</div>
-                <div class="action-title">View Roadmap</div>
-                <div class="action-desc">Check your personalized learning path and upcoming milestones</div>
-            </a>
-
-            <a href="#" class="action-card" onclick="askBot('Analyze my progress and suggest improvements'); return false;">
-                <div class="action-icon">📊</div>
-                <div class="action-title">Track Progress</div>
-                <div class="action-desc">Monitor your learning analytics and performance insights</div>
-            </a>
-        </div>
-    </div>
-
-    <!-- Chat Bot Button -->
-    <div class="chat-bot" onclick="toggleChat()">🤖</div>
-
-    <!-- Chat Modal -->
-    <div class="chat-modal" id="chatModal">
-        <div class="chat-header">
-            <h3>🤖 SkillBot AI</h3>
-            <button class="chat-close" onclick="toggleChat()">×</button>
-        </div>
+    <!-- CHATBOT BOX -->
+    <div class="chatbot-box" id="chatBox">
+        <div class="chat-header">SkillNova AI Assistant</div>
         <div class="chat-messages" id="chatMessages">
-            <div class="message bot">
-                Hi! I'm SkillBot powered by Gemini AI. Ask me anything about skills, careers, or learning paths! 🚀
-            </div>
+            <div class="bot">Hi Nandana! How can I help you today? 😊</div>
         </div>
-        <div class="typing" id="typing">
-            <span></span><span></span><span></span>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
-            <button class="chat-send" id="sendBtn" onclick="sendMessage()">Send</button>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        // ⚠️ PASTE YOUR GEMINI API KEY HERE - Replace this line
-        const GEMINI_API_KEY = 'AIzaSyB7Ivjr9PuU1UZnUbIL6vQLJwP5xTUVOIE';
+        // ⚠️ PUDHIYA GEMINI API KEY IVDE VEKKU - Replace this line
+        const GEMINI_API_KEY = 'AIzaSyBTSbmTw9Mo_qe8doy-EwXV3rRidMdc9PA';
         const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
-        // Check if user is logged in
-        const currentUser = JSON.parse(localStorage.getItem('skillnova_current_user'));
-
-        if (!currentUser) {
-            window.location.href = 'home.html';
-        } else {
-            document.getElementById('userName').textContent = currentUser.name.split(' ')[0];
-        }
-
-        // Logout function
-        function logout() {
-            localStorage.removeItem('skillnova_current_user');
-            window.location.href = 'home.html';
-        }
-
-        // Chatbot Functions
-        let chatHistory = [];
-        let chatOpen = false;
+        // Get username from login
+        const user = localStorage.getItem('skillnova_user') || 'Nandana';
+        document.getElementById('userName').innerText = user;
+        document.getElementById('welcomeName').innerText = user;
 
         function toggleChat() {
-            chatOpen =!chatOpen;
-            document.getElementById('chatModal').classList.toggle('active');
-            if (chatOpen) document.getElementById('chatInput').focus();
-        }
-
-        function askBot(question) {
-            if (!chatOpen) toggleChat();
-            document.getElementById('chatInput').value = question;
-            sendMessage();
+            const box = document.getElementById('chatBox');
+            box.style.display = box.style.display === 'flex'? 'none' : 'flex';
         }
 
         async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const sendBtn = document.getElementById('sendBtn');
-            const message = input.value.trim();
+            const input = document.getElementById('userInput');
+            const msg = input.value.trim();
+            if (!msg) return;
 
-            if (!message || sendBtn.disabled) return;
-            if (GEMINI_API_KEY === 'PASTE_YOUR_KEY_HERE') {
-                addMessage('Please add your Gemini API key in the code first!', 'bot');
+            if (GEMINI_API_KEY === 'PASTE_YOUR_NEW_API_KEY_HERE' ||!GEMINI_API_KEY) {
+                addMsg('Please add your Gemini API key in the code first!', 'bot');
                 return;
             }
 
-            addMessage(message, 'user');
+            addMsg(msg, 'user');
             input.value = '';
-            sendBtn.disabled = true;
-            showTyping();
-
-            chatHistory.push({ role: 'user', parts: [{ text: message }] });
 
             try {
-                const response = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+                const response = await fetch(GEMINI_URL + '?key=' + GEMINI_API_KEY, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: chatHistory,
-                        systemInstruction: {
-                            parts: [{ text: `You are SkillBot, an AI career coach for SkillNova. User name: ${currentUser.name}. User stats: 8 skills mastered, 24 achievements, 15 day streak. Be helpful, concise, and encouraging. Focus on skills, learning paths, jobs, and career advice. Keep responses under 3 sentences unless asked for details.` }]
-                        },
-                        generationConfig: { temperature: 0.7, maxOutputTokens: 200 }
+                        contents: [{ parts: [{ text: msg }] }]
                     })
                 });
-
-                hideTyping();
-                sendBtn.disabled = false;
 
                 if (!response.ok) throw new Error('API Error');
 
                 const data = await response.json();
-                const botReply = data.candidates[0].content.parts[0].text;
-
-                chatHistory.push({ role: 'model', parts: [{ text: botReply }] });
-                addMessage(botReply, 'bot');
-
+                const reply = data.candidates[0].content.parts[0].text;
+                addMsg(reply, 'bot');
             } catch (error) {
-                hideTyping();
-                sendBtn.disabled = false;
-                addMessage('Sorry, I had trouble connecting. Check your API key or try again.', 'bot');
-                console.error(error);
+                addMsg('Sorry, something went wrong. Check your API key.', 'bot');
             }
         }
 
-        function addMessage(text, sender) {
-            const messagesDiv = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message ' + sender;
-            messageDiv.textContent = text;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        function addMsg(text, type) {
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerText = text;
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        function showTyping() {
-            document.getElementById('typing').classList.add('active');
-            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
-        }
-
-        function hideTyping() {
-            document.getElementById('typing').classList.remove('active');
+        function logout() {
+            localStorage.removeItem('skillnova_user');
+            window.location.href = 'index.html';
         }
     </script>
 </body>

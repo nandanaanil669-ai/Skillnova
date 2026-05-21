@@ -3,128 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillNova - Home</title>
+    <title>SkillNova - Your Career Starts Here</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
+        
         .container {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 450px;
             width: 100%;
-            max-width: 400px;
-        }
-        h1 {
+            padding: 40px;
             text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
         }
-        .logo {
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
+        
+        .logo { font-size: 48px; margin-bottom: 10px; }
+        
+        h1 { 
+            font-size: 32px; 
+            color: #333; 
             margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
+            font-weight: 700;
         }
-        input {
+        
+        .tagline { 
+            color: #666; 
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f5f5f5;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .form { display: none; }
+        .form.active { display: block; }
+        
+        .input-group { margin-bottom: 15px; text-align: left; }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
         }
-        input:focus {
+        
+        .input-group input:focus {
             outline: none;
             border-color: #667eea;
         }
-        button {
+        
+        .btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
+            margin-bottom: 12px;
         }
-        button:hover {
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        .error {
-            color: #e74c3c;
-            text-align: center;
-            margin-top: 15px;
+        
+        .btn-google {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-google:hover {
+            background: #f8f8f8;
+        }
+        
+        .divider {
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+        
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
             font-size: 14px;
         }
-        .success {
-            color: #27ae60;
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
-        .signup-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-        .signup-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">SkillNova</div>
-        <h1>Login</h1>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
-            </div>
-            <button type="submit">Login</button>
-            <div id="message"></div>
-        </form>
-        <div class="signup-link">
-            Don't have an account? <a href="signup.html">Sign up</a>
+        <div class="logo">🚀</div>
+        <h1>SkillNova</h1>
+        <p class="tagline">Your Career Starts Here</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('login')">Login</button>
+            <button class="tab" onclick="switchTab('signup')">Sign Up</button>
         </div>
+        
+        <div id="message" class="message"></div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" class="form active">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="nandana@skillnova.com" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            
+            <div class="divider">or</div>
+            
+            <button type="button" class="btn btn-google" onclick="googleLogin()">
+                <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/></svg>
+                Continue with Google
+            </button>
+        </form>
+        
+        <!-- Signup Form -->
+        <form id="signupForm" class="form">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your name" required>
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="signupEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="Create password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+            
+            <div class="divider">or</div>
+            
+            <button type="button" class="btn btn-google" onclick="googleLogin()">
+                <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/></svg>
+                Continue with Google
+            </button>
+        </form>
     </div>
 
     <script>
-        // Permanent fix: Auto-create default account for demo/presentation
-        // This ensures login works even if localStorage is cleared or expired
+        // FIX 1: Auto-create default account on page load
         (function createDefaultAccount() {
             let users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
             let defaultExists = users.some(user => user.email === 'nandana@skillnova.com');
@@ -138,30 +245,88 @@
                     createdAt: new Date().toISOString()
                 });
                 localStorage.setItem('skillnova_users', JSON.stringify(users));
+                console.log('Default account created');
             }
         })();
 
-        // Login validation logic
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Form').classList.add('active');
+            hideMessage();
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+            msg.style.display = 'block';
+        }
+
+        function hideMessage() {
+            document.getElementById('message').style.display = 'none';
+        }
+
+        // Login
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('message');
-            
-            let users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
-            let user = users.find(u => u.email === email && u.password === password);
+            const users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
             
             if (user) {
-                messageDiv.innerHTML = '<div class="success">Login successful! Redirecting...</div>';
-                localStorage.setItem('skillnova_currentUser', JSON.stringify(user));
+                localStorage.setItem('skillnova_current_user', JSON.stringify(user));
+                showMessage('Login successful! Redirecting...', 'success');
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1000);
             } else {
-                messageDiv.innerHTML = '<div class="error">Invalid email or password! Please signup first.</div>';
+                showMessage('Invalid email or password', 'error');
             }
         });
+
+        // Signup
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            let users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
+            
+            if (users.some(u => u.email === email)) {
+                showMessage('Email already exists', 'error');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now().toString(),
+                name: name,
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('skillnova_users', JSON.stringify(users));
+            localStorage.setItem('skillnova_current_user', JSON.stringify(newUser));
+            
+            showMessage('Account created! Redirecting...', 'success');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        });
+
+        // Google login - demo only
+        function googleLogin() {
+            showMessage('Google login not configured yet. Use email login.', 'error');
+        }
     </script>
 </body>
 </html>

@@ -13,13 +13,14 @@
     input { width: 70%; padding: 10px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; }
     button { width: 25%; padding: 10px; background: #00bfff; border: none; border-radius: 8px; color: black; font-weight: bold; cursor: pointer; }
     h2 { text-align: center; color: #00bfff; }
+    .loading { color: #8b949e; font-style: italic; }
   </style>
 </head>
 <body>
   <div class="chat-box">
-    <h2>🤖 SkillBot - Your Career Assistant</h2>
+    <h2>🤖 SkillBot - Your AI Career Assistant</h2>
     <div class="messages" id="messages">
-      <div class="msg bot">Hi! I'm SkillBot 👋 Ask me about careers, skills, or MBTI types!</div>
+      <div class="msg bot">Hi! I'm SkillBot powered by Gemini 👋 Ask me about careers, skills, MBTI, or salaries!</div>
     </div>
     <input type="text" id="userInput" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMsg()">
     <button onclick="sendMsg()">Send</button>
@@ -28,46 +29,54 @@
   <script>
     const messages = document.getElementById('messages');
     const input = document.getElementById('userInput');
+    const API_URL = "https://v0-next-js-api-route-nine-alpha.vercel.app/api/chat";
+    
+    let chatHistory = [];
 
-    function sendMsg() {
+    async function sendMsg() {
       const text = input.value.trim();
       if (!text) return;
       
       // Show user message
       messages.innerHTML += `<div class="msg user">You: ${text}</div>`;
       input.value = '';
+      messages.scrollTop = messages.scrollHeight;
       
-      // Bot reply logic - simple if-else
-      let reply = "Sorry, I can help with careers, skills, MBTI, and salary. Try asking: 'Best career for ISTJ?'";
-      text_lower = text.toLowerCase();
+      // Show loading
+      const loadingId = Date.now();
+      messages.innerHTML += `<div class="msg bot loading" id="${loadingId}">SkillBot is typing...</div>`;
+      messages.scrollTop = messages.scrollHeight;
       
-      if (text_lower.includes('hello') || text_lower.includes('hi')) {
-        reply = "Hello! How can I help you with your career today?";
-      } 
-      else if (text_lower.includes('istj') || text_lower.includes('logistician')) {
-        reply = "ISTJ - The Logistician! Best careers: QA Engineer, Database Admin, Accountant. You're practical & reliable!";
-      }
-      else if (text_lower.includes('enfp')) {
-        reply = "ENFP - The Campaigner! Best careers: Marketing, Content Creator, HR. You're creative & energetic!";
-      }
-      else if (text_lower.includes('salary') || text_lower.includes('frontend')) {
-        reply = "Frontend Developer Salary in India: Fresher ₹6-10 LPA, Mid ₹12-18 LPA, Senior ₹20-35 LPA. Check Salary Predictor page!";
-      }
-      else if (text_lower.includes('roadmap')) {
-        reply = "Go to Learning Roadmap page, select your career, and get 5 steps to become job-ready!";
-      }
-      else if (text_lower.includes('skill')) {
-        reply = "Add your skills in Skill Gap Analysis page. We track Technical, Soft, and Tools categories!";
-      }
-      else if (text_lower.includes('thank')) {
-        reply = "You're welcome! Keep learning with SkillNova 🚀";
-      }
+      // Add to history
+      chatHistory.push({ role: "user", content: text });
 
-      setTimeout(() => {
+      try {
+        // Call Gemini API via Vercel
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: chatHistory })
+        });
+
+        if (!response.ok) throw new Error('API Error');
+        
+        const data = await response.json();
+        const reply = data.text || "Sorry, I couldn't process that. Try again!";
+        
+        // Remove loading and show reply
+        document.getElementById(loadingId).remove();
         messages.innerHTML += `<div class="msg bot">SkillBot: ${reply}</div>`;
-        messages.scrollTop = messages.scrollHeight;
-      }, 500);
+        
+        // Add to history
+        chatHistory.push({ role: "model", content: reply });
+        
+      } catch (error) {
+        document.getElementById(loadingId).remove();
+        messages.innerHTML += `<div class="msg bot">SkillBot: Sorry, connection error. Please try again later! 😢</div>`;
+      }
+      
+      messages.scrollTop = messages.scrollHeight;
     }
   </script>
 </body>
-</html>s
+</html>

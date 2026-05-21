@@ -1,273 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkillNova - Home</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0a0e27;
-      color: white;
-      display: flex;
-      min-height: 100vh;
-    }
-   .left {
-      flex: 1;
-      background: linear-gradient(135deg, #0a0e27 0%, #1a1f4a 100%);
-      padding: 80px 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-   .left h1 {
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 24px;
-    }
-   .left h1.blue { color: #00d4ff; }
-   .left p {
-      color: #8b92b9;
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 450px;
-    }
-   .right {
-      flex: 1;
-      background: #0f1329;
-      padding: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-   .welcome {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-   .status {
-      color: #00ff88;
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-   .status::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: #00ff88;
-      border-radius: 50%;
-      display: inline-block;
-    }
-   .subtitle {
-      color: #8b92b9;
-      margin-bottom: 32px;
-      font-size: 15px;
-    }
-   .social {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-   .social button {
-      flex: 1;
-      padding: 12px;
-      background: #1a1f3a;
-      border: 1px solid #2d3454;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-   .social button:hover { background: #252b4a; }
-   .divider {
-      text-align: center;
-      color: #5a6186;
-      margin: 24px 0;
-      font-size: 14px;
-      position: relative;
-    }
-   .divider::before,.divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: #2d3454;
-    }
-   .divider::before { left: 0; }
-   .divider::after { right: 0; }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #8b92b9;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    input[type="email"], input[type="password"] {
-      width: 100%;
-      padding: 14px 16px;
-      margin-bottom: 20px;
-      background: #1a1f3a;
-      border: 1px solid #2d3454;
-      border-radius: 8px;
-      color: white;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-    input:focus {
-      outline: none;
-      border-color: #00d4ff;
-    }
-   .options {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-   .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #8b92b9;
-      font-size: 14px;
-    }
-   .forgot {
-      color: #00d4ff;
-      text-decoration: none;
-      font-size: 14px;
-    }
-   .login-btn {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(90deg, #00d4ff, #0099ff);
-      border: none;
-      border-radius: 8px;
-      color: #0a0e27;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-   .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
-    }
-   .dashboard-btn {
-      width: 100%;
-      padding: 16px;
-      background: #1a1f3a;
-      border: 2px solid #00d4ff;
-      border-radius: 8px;
-      color: #00d4ff;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 16px;
-      display: none;
-    }
-   .signup-link {
-      text-align: center;
-      margin-top: 24px;
-      color: #8b92b9;
-      font-size: 14px;
-    }
-   .signup-link a {
-      color: #00d4ff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    @media (max-width: 768px) {
-      body { flex-direction: column; }
-     .left { padding: 40px 30px; }
-     .left h1 { font-size: 36px; }
-     .right { padding: 40px 30px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillNova - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .logo {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .success {
+            color: #27ae60;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-  <div class="left">
-    <h1>Your Career<br>Journey <span class="blue">Starts</span><br>Right Here</h1>
-    <p>AI-powered skill analysis and personalized roadmap for the modern job seeker.</p>
-  </div>
-
-  <div class="right">
-    <h2 class="welcome" id="welcomeText">Welcome back 👋</h2>
-    <div class="status">AI Systems Online</div>
-    <p class="subtitle" id="subtitleText">Login to continue your career journey</p>
-
-    <div id="loginSection">
-      <div class="social">
-        <button>🔵 Google</button>
-        <button>🔴 LinkedIn</button>
-      </div>
-
-      <div class="divider">or continue with email</div>
-
-      <form id="loginForm">
-        <label>EMAIL ADDRESS</label>
-        <input type="email" id="email" placeholder="you@example.com" required>
-
-        <label>PASSWORD</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
-
-        <div class="options">
-          <div class="checkbox">
-            <input type="checkbox" id="remember">
-            <label for="remember" style="margin: 0;">REMEMBER ME</label>
-          </div>
-          <a href="#" class="forgot">Forgot password?</a>
+    <div class="container">
+        <div class="logo">SkillNova</div>
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div id="message"></div>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign up</a>
         </div>
-
-        <button type="submit" class="login-btn">Login to SkillNova →</button>
-      </form>
-
-      <div class="signup-link">
-        Don't have an account? <a href="signup.html">Create one free</a>
-      </div>
     </div>
 
-    <button class="dashboard-btn" id="dashboardBtn" onclick="window.location.href='dashboard.html'">
-      Go to Dashboard →
-    </button>
-  </div>
+    <script>
+        // Permanent fix: Auto-create default account for demo/presentation
+        // This ensures login works even if localStorage is cleared or expired
+        (function createDefaultAccount() {
+            let users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
+            let defaultExists = users.some(user => user.email === 'nandana@skillnova.com');
+            
+            if (!defaultExists) {
+                users.push({
+                    id: 'default_nandana',
+                    name: 'Nandana Anil',
+                    email: 'nandana@skillnova.com',
+                    password: 'nandana123',
+                    createdAt: new Date().toISOString()
+                });
+                localStorage.setItem('skillnova_users', JSON.stringify(users));
+            }
+        })();
 
-  <script>
-    // Check if already logged in
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (loggedInUser) {
-      document.getElementById('welcomeText').textContent = `Welcome, ${loggedInUser} 👋`;
-      document.getElementById('subtitleText').textContent = 'You are successfully logged in';
-      document.getElementById('loginSection').style.display = 'none';
-      document.getElementById('dashboardBtn').style.display = 'block';
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      // Get users from localStorage
-      const users = JSON.parse(localStorage.getItem('skillnovaUsers') || '[]');
-
-      // Check if user exists
-      const userFound = users.find(user => user.email === email && user.password === password);
-
-      if (userFound) {
-        localStorage.setItem('loggedInUser', userFound.name);
-        alert("Login Success! Welcome to SkillNova 🔥");
-        window.location.href = 'home.html'; // ← LOGIN KAZHINJAL HOME IL THANNE
-      } else {
-        alert("Invalid email or password! Please signup first.");
-      }
-    });
-  </script>
+        // Login validation logic
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            
+            let users = JSON.parse(localStorage.getItem('skillnova_users') || '[]');
+            let user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                messageDiv.innerHTML = '<div class="success">Login successful! Redirecting...</div>';
+                localStorage.setItem('skillnova_currentUser', JSON.stringify(user));
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                messageDiv.innerHTML = '<div class="error">Invalid email or password! Please signup first.</div>';
+            }
+        });
+    </script>
 </body>
 </html>

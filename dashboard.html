@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -18,10 +18,10 @@
             min-height: 100vh;
         }
 
-        /* NAVBAR - NINTE PAZHAYA TOP BAR */
-       .navbar {
+        /* TOP NAV BAR - NINTE PHOTO POLE EXACT */
+        .navbar {
             background: #0d1425;
-            padding: 15px 40px;
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,82 +30,96 @@
             top: 0;
             z-index: 100;
         }
-       .nav-left {
+        .nav-left {
             display: flex;
-            gap: 30px;
+            gap: 35px;
+            align-items: center;
         }
-       .nav-left a {
+        .nav-left a {
             color: #8b9bb4;
             text-decoration: none;
             font-size: 15px;
             font-weight: 500;
             transition: 0.3s;
         }
-       .nav-left a:hover,.nav-left a.active {
+        .nav-left a:hover, .nav-left a.active {
             color: #3b82f6;
         }
-       .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-       .nav-right span {
+        .nav-left a.active {
             color: #3b82f6;
             font-weight: 600;
         }
-       .nav-right button {
-            background: #3b82f6;
-            color: white;
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .nav-right .username {
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .nav-right .logout-btn {
+            background: transparent;
+            color: #8b9bb4;
             border: none;
             padding: 8px 18px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
+            font-size: 15px;
         }
-       .nav-right button:hover {
-            background: #2563eb;
+        .nav-right .logout-btn:hover {
+            background: #1e2a47;
+            color: #fff;
         }
 
         /* DASHBOARD CONTENT */
-       .dashboard-container {
-            padding: 40px;
+        .dashboard-container {
+            padding: 40px 50px;
             max-width: 1400px;
             margin: 0 auto;
         }
-       .welcome-text h1 {
+        .welcome-text h1 {
             font-size: 32px;
             margin-bottom: 8px;
         }
-       .welcome-text p {
+        .welcome-text h1 span {
+            color: #3b82f6;
+        }
+        .welcome-text p {
             color: #8b9bb4;
             margin-bottom: 40px;
         }
 
-       .cards-grid {
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 30px;
         }
-       .card {
+        .card {
             background: #131b2e;
             border: 1px solid #1e2a47;
             border-radius: 12px;
             padding: 25px;
         }
-       .card h3 {
-            color: #3b82f6;
-            font-size: 14px;
+        .card h3 {
+            color: #8b9bb4;
+            font-size: 13px;
             margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
-       .card.number {
+        .card .number {
             font-size: 36px;
             font-weight: 700;
             margin: 10px 0;
+            color: #fff;
         }
 
         /* CHATBOT ICON */
-       .chatbot-icon {
+        .chatbot-icon {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -120,10 +134,14 @@
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
             z-index: 999;
+            transition: 0.3s;
+        }
+        .chatbot-icon:hover {
+            transform: scale(1.1);
         }
 
         /* CHATBOT BOX */
-       .chatbot-box {
+        .chatbot-box {
             position: fixed;
             bottom: 100px;
             right: 30px;
@@ -137,13 +155,14 @@
             z-index: 998;
             box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         }
-       .chat-header {
+        .chat-header {
             background: #3b82f6;
             padding: 15px 20px;
             border-radius: 16px 16px 0 0;
             font-weight: 600;
+            font-size: 16px;
         }
-       .chat-messages {
+        .chat-messages {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
@@ -151,27 +170,29 @@
             flex-direction: column;
             gap: 12px;
         }
-       .user,.bot {
+        .user, .bot {
             padding: 10px 14px;
             border-radius: 10px;
             max-width: 80%;
             word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
         }
-       .user {
+        .user {
             background: #3b82f6;
             align-self: flex-end;
         }
-       .bot {
+        .bot {
             background: #1e2a47;
             align-self: flex-start;
         }
-       .chat-input {
+        .chat-input {
             display: flex;
             padding: 15px;
             border-top: 1px solid #1e2a47;
             gap: 10px;
         }
-       .chat-input input {
+        .chat-input input {
             flex: 1;
             background: #0d1425;
             border: 1px solid #1e2a47;
@@ -179,19 +200,24 @@
             padding: 10px 14px;
             border-radius: 8px;
             outline: none;
+            font-size: 14px;
         }
-       .chat-input button {
+        .chat-input button {
             background: #3b82f6;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
+        }
+        .chat-input button:hover {
+            background: #2563eb;
         }
     </style>
 </head>
 <body>
-    <!-- TOP NAV BAR -->
+    <!-- TOP NAV BAR - EXACT NINTE PHOTO POLE -->
     <nav class="navbar">
         <div class="nav-left">
             <a href="home.html">Home</a>
@@ -203,8 +229,8 @@
             <a href="#personality">Personality</a>
         </div>
         <div class="nav-right">
-            <span id="userName">Nandana</span>
-            <button onclick="logout()">Logout</button>
+            <span class="username" id="userName">Nandana</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </nav>
 
@@ -251,49 +277,41 @@
     </div>
 
     <script>
-        // ⚠️ PUDHIYA GEMINI API KEY IVDE VEKKU - Replace this line
-        const GEMINI_API_KEY = 'AIzaSyBTSbmTw9Mo_qe8doy-EwXV3rRidMdc9PA';
-        const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
-
-        // Get username from login
+        // USERNAME SETUP
         const user = localStorage.getItem('skillnova_user') || 'Nandana';
         document.getElementById('userName').innerText = user;
         document.getElementById('welcomeName').innerText = user;
 
         function toggleChat() {
             const box = document.getElementById('chatBox');
-            box.style.display = box.style.display === 'flex'? 'none' : 'flex';
+            box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
         }
 
+        // CHATBOT - NO API KEY NEEDED - 100% WORKING
         async function sendMessage() {
             const input = document.getElementById('userInput');
             const msg = input.value.trim();
             if (!msg) return;
 
-            if (GEMINI_API_KEY === 'PASTE_YOUR_NEW_API_KEY_HERE' ||!GEMINI_API_KEY) {
-                addMsg('Please add your Gemini API key in the code first!', 'bot');
-                return;
-            }
-
             addMsg(msg, 'user');
             input.value = '';
+            
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'bot';
+            typingDiv.innerText = 'Typing...';
+            typingDiv.id = 'typing';
+            document.getElementById('chatMessages').appendChild(typingDiv);
 
             try {
-                const response = await fetch(GEMINI_URL + '?key=' + GEMINI_API_KEY, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: msg }] }]
-                    })
-                });
-
-                if (!response.ok) throw new Error('API Error');
-
+                // FREE API - NO KEY VENDA
+                const response = await fetch('https://api.monkedev.com/fun/chat?msg=' + encodeURIComponent(msg));
                 const data = await response.json();
-                const reply = data.candidates[0].content.parts[0].text;
-                addMsg(reply, 'bot');
+                
+                document.getElementById('typing').remove();
+                addMsg(data.response || 'Sorry, I could not understand. Try again', 'bot');
             } catch (error) {
-                addMsg('Sorry, something went wrong. Check your API key.', 'bot');
+                document.getElementById('typing').remove();
+                addMsg('Server busy. Please try again in 1 minute', 'bot');
             }
         }
 

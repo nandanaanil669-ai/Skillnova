@@ -52,12 +52,12 @@
             align-items: center;
             gap: 30px;
         }
-       .nav-right.username {
+       .nav-right .username {
             color: #3b82f6;
             font-weight: 600;
             font-size: 15px;
         }
-       .nav-right.logout-btn {
+       .nav-right .logout-btn {
             color: #8892b0;
             background: transparent;
             border: none;
@@ -155,95 +155,6 @@
             font-size: 20px;
         }
 
-        /* CHATBOT */
-       .chatbot-icon {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #3b82f6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-            z-index: 999;
-        }
-       .chatbot-box {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 380px;
-            height: 500px;
-            background: #111a2e;
-            border: 1px solid #1a2341;
-            border-radius: 16px;
-            display: none;
-            flex-direction: column;
-            z-index: 998;
-        }
-       .chat-header {
-            background: #3b82f6;
-            padding: 15px 20px;
-            border-radius: 16px 16px 0 0;
-            font-weight: 600;
-        }
-       .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-       .user,.bot {
-            padding: 10px 14px;
-            border-radius: 10px;
-            max-width: 80%;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-       .user {
-            background: #3b82f6;
-            align-self: flex-end;
-        }
-       .bot {
-            background: #1a2341;
-            align-self: flex-start;
-        }
-       .chat-input {
-            display: flex;
-            padding: 15px;
-            border-top: 1px solid #1a2341;
-            gap: 10px;
-        }
-       .chat-input input {
-            flex: 1;
-            background: #0d1526;
-            border: 1px solid #1a2341;
-            color: white;
-            padding: 10px 14px;
-            border-radius: 8px;
-            outline: none;
-        }
-       .chat-input button {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-       .chat-input button:disabled {
-            background: #2563eb;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
         @media (max-width: 1200px) {
            .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -330,108 +241,15 @@
         </div>
     </div>
 
-    <!-- CHATBOT -->
-    <div class="chatbot-icon" onclick="toggleChat()">🤖</div>
-    <div class="chatbot-box" id="chatBox">
-        <div class="chat-header">SkillNova AI Assistant</div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="bot">Hi Nandana! I'm your SkillNova AI Assistant. Ask me about tech careers, coding, or salaries! 😊</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
-            <button id="sendBtn" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
     <script>
         const user = localStorage.getItem('skillnova_user') || 'Nandana';
         document.getElementById('userName').innerText = user;
         document.getElementById('welcomeName').innerText = user + '!';
-
-        // ✅ VERCEL BACKEND URL - API KEY SAFE AAYI
-        const API_URL = `/api/gemini`;
-
-        // Chat history maintain cheyyan
-        let conversationHistory = [];
-
-        function toggleChat() {
-            const box = document.getElementById('chatBox');
-            box.style.display = box.style.display === 'flex'? 'none' : 'flex';
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            const sendBtn = document.getElementById('sendBtn');
-            const msg = input.value.trim();
-            if (!msg) return;
-
-            addMsg(msg, 'user');
-            input.value = '';
-            sendBtn.disabled = true;
-
-            // Add to history
-            conversationHistory.push({
-                role: 'user',
-                parts: [{ text: msg }]
-            });
-
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'bot';
-            typingDiv.innerText = 'Typing...';
-            typingDiv.id = 'typing';
-            document.getElementById('chatMessages').appendChild(typingDiv);
-            scrollToBottom();
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: conversationHistory
-                    })
-                });
-
-                if (!response.ok) throw new Error(`API Error: ${response.status}`);
-
-                const data = await response.json();
-                const botReply = data.candidates[0].content.parts[0].text;
-
-                // Add bot reply to history
-                conversationHistory.push({
-                    role: 'model',
-                    parts: [{ text: botReply }]
-                });
-
-                document.getElementById('typing').remove();
-                addMsg(botReply, 'bot');
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('typing').remove();
-                addMsg('Sorry, something went wrong. Please try again later.', 'bot');
-            } finally {
-                sendBtn.disabled = false;
-            }
-        }
-
-        function addMsg(text, type) {
-            const div = document.createElement('div');
-            div.className = type;
-            div.innerHTML = text.replace(/\n/g, '<br>');
-            const chatMessages = document.getElementById('chatMessages');
-            chatMessages.appendChild(div);
-            scrollToBottom();
-        }
-
-        function scrollToBottom() {
-            const chatMessages = document.getElementById('chatMessages');
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
 
         function logout() {
             localStorage.removeItem('skillnova_user');
             window.location.href = 'index.html';
         }
     </script>
-    <script src="https://v0-next-js-chat-widget-self.vercel.app/widget.js"></script>
 </body>
 </html>

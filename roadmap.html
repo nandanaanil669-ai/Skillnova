@@ -31,6 +31,11 @@
        .skill-tags { display: flex; gap: 10px; flex-wrap: wrap; }
        .tag { background: #0f0f1a; border: 1px solid #2a2a4e; padding: 6px 12px; border-radius: 6px; font-size: 13px; color: #00bfff; }
        .loading { text-align: center; padding: 40px; color: #8a2be2; font-size: 18px; }
+       /* PUTHIYA CSS - CHECKBOX INU MAATHRAM */
+       .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+       .step-checkbox { width: 22px; height: 22px; accent-color: #00bfff; cursor: pointer; }
+       .completed h4 { text-decoration: line-through; opacity: 0.6; }
+       .completed { border-left-color: #00ff88; }
     </style>
 </head>
 <body>
@@ -115,9 +120,38 @@
             window.location.href = 'login.html';
         }
 
+        // PUTHIYA FUNCTION - CHECKBOX LOGIC
+        function toggleStep(goal, stepId) {
+            const key = `skillnova_${goal}_completed`;
+            let completedSteps = JSON.parse(localStorage.getItem(key)) || [];
+            
+            if (completedSteps.includes(stepId)) {
+                completedSteps = completedSteps.filter(id => id !== stepId);
+            } else {
+                completedSteps.push(stepId);
+            }
+            localStorage.setItem(key, JSON.stringify(completedSteps));
+            updateCheckboxStyle(goal, stepId);
+        }
+
+        function updateCheckboxStyle(goal, stepId) {
+            const key = `skillnova_${goal}_completed`;
+            const completedSteps = JSON.parse(localStorage.getItem(key)) || [];
+            const stepElement = document.querySelector(`[data-goal="${goal}"][data-step="${stepId}"]`);
+            if (stepElement) {
+                if (completedSteps.includes(stepId)) {
+                    stepElement.classList.add('completed');
+                } else {
+                    stepElement.classList.remove('completed');
+                }
+            }
+        }
+
         function generateRoadmap() {
             const goal = document.getElementById('careerGoal').value;
             const stepsContainer = document.getElementById('roadmapSteps');
+            const key = `skillnova_${goal}_completed`;
+            const completedSteps = JSON.parse(localStorage.getItem(key)) || [];
             
             stepsContainer.innerHTML = '<div class="loading">Generating your roadmap... 🚀</div>';
             
@@ -127,9 +161,14 @@
                 
                 selectedRoadmap.forEach((item, index) => {
                     setTimeout(() => {
+                        const isCompleted = completedSteps.includes(item.step);
                         const stepHTML = `
-                            <div class="roadmap-step">
-                                <span class="step-tag">STEP ${item.step}</span>
+                            <div class="roadmap-step ${isCompleted ? 'completed' : ''}" data-goal="${goal}" data-step="${item.step}">
+                                <div class="step-header">
+                                    <input type="checkbox" class="step-checkbox" ${isCompleted ? 'checked' : ''} 
+                                           onchange="toggleStep('${goal}', ${item.step})">
+                                    <span class="step-tag">STEP ${item.step}</span>
+                                </div>
                                 <h4>${item.title}</h4>
                                 <p>${item.desc}</p>
                                 <div class="skill-tags">
@@ -143,7 +182,6 @@
             }, 800);
         }
 
-        // Load default roadmap on page load
         window.onload = function() {
             generateRoadmap();
         }

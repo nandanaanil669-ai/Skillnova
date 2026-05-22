@@ -7,35 +7,35 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: #0a0a14; color: #e0e0ff; min-height: 100vh; }
-       .navbar { background: #0f0f1a; padding: 15px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a2e; position: sticky; top: 0; z-index: 100; }
-       .logo { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, #8a2be2, #00bfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-       .nav-links { display: flex; gap: 35px; list-style: none; }
-       .nav-links a { color: #b8b8ff; text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; padding: 8px 16px; border-radius: 6px; }
-       .nav-links a:hover,.nav-links a.active { color: #fff; background: #1a1a2e; }
-       .nav-links a.active { background: #8a2be2; }
-       .logout-btn { padding: 8px 16px; background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 6px; color: #ff6b6b; cursor: pointer; font-size: 14px; }
-       .container { max-width: 1000px; margin: 0 auto; padding: 60px 40px; }
-       .page-header { text-align: center; margin-bottom: 50px; }
-       .page-header h1 { font-size: 42px; margin-bottom: 12px; background: linear-gradient(90deg, #00bfff, #8a2be2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-       .page-header p { color: #b8b8ff; font-size: 16px; }
-       .goal-card { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 12px; padding: 30px; margin-bottom: 40px; }
-       .goal-card h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 18px; }
-       .goal-select { width: 100%; padding: 14px; background: #0f0f1a; border: 1px solid #2a2a4e; border-radius: 8px; color: #fff; font-size: 15px; margin-bottom: 20px; }
-       .generate-btn { width: 100%; padding: 15px; background: linear-gradient(90deg, #00bfff, #8a2be2); border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-       .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4); }
-       .roadmap-step { background: #1a1a2e; border: 1px solid #2a2a4e; border-left: 4px solid #00bfff; border-radius: 8px; padding: 25px; margin-bottom: 20px; position: relative; animation: slideIn 0.5s ease; }
+      .navbar { background: #0f0f1a; padding: 15px 60px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a2e; position: sticky; top: 0; z-index: 100; }
+      .logo { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, #8a2be2, #00bfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .nav-links { display: flex; gap: 35px; list-style: none; }
+      .nav-links a { color: #b8b8ff; text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; padding: 8px 16px; border-radius: 6px; }
+      .nav-links a:hover,.nav-links a.active { color: #fff; background: #1a1a2e; }
+      .nav-links a.active { background: #8a2be2; }
+      .logout-btn { padding: 8px 16px; background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 6px; color: #ff6b6b; cursor: pointer; font-size: 14px; }
+      .container { max-width: 1000px; margin: 0 auto; padding: 60px 40px; }
+      .page-header { text-align: center; margin-bottom: 50px; }
+      .page-header h1 { font-size: 42px; margin-bottom: 12px; background: linear-gradient(90deg, #00bfff, #8a2be2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .page-header p { color: #b8b8ff; font-size: 16px; }
+      .goal-card { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 12px; padding: 30px; margin-bottom: 40px; }
+      .goal-card h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 18px; }
+      .goal-select { width: 100%; padding: 14px; background: #0f0f1a; border: 1px solid #2a2a4e; border-radius: 8px; color: #fff; font-size: 15px; margin-bottom: 20px; }
+      .generate-btn { width: 100%; padding: 15px; background: linear-gradient(90deg, #00bfff, #8a2be2); border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+      .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4); }
+      .roadmap-step { background: #1a1a2e; border: 1px solid #2a2a4e; border-left: 4px solid #00bfff; border-radius: 8px; padding: 25px; margin-bottom: 20px; position: relative; animation: slideIn 0.5s ease; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-       .step-tag { display: inline-block; background: #00bfff; color: #0a0a14; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
-       .roadmap-step h4 { font-size: 20px; margin-bottom: 8px; }
-       .roadmap-step p { color: #b8b8ff; line-height: 1.6; margin-bottom: 15px; }
-       .skill-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-       .tag { background: #0f0f1a; border: 1px solid #2a2a4e; padding: 6px 12px; border-radius: 6px; font-size: 13px; color: #00bfff; }
-       .loading { text-align: center; padding: 40px; color: #8a2be2; font-size: 18px; }
-       /* PUTHIYA CSS - CHECKBOX INU MAATHRAM */
-       .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
-       .step-checkbox { width: 22px; height: 22px; accent-color: #00bfff; cursor: pointer; }
-       .completed h4 { text-decoration: line-through; opacity: 0.6; }
-       .completed { border-left-color: #00ff88; }
+      .step-tag { display: inline-block; background: #00bfff; color: #0a0a14; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+      .roadmap-step h4 { font-size: 20px; margin-bottom: 8px; }
+      .roadmap-step p { color: #b8b8ff; line-height: 1.6; margin-bottom: 15px; }
+      .skill-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+      .tag { background: #0f0f1a; border: 1px solid #2a2a4e; padding: 6px 12px; border-radius: 6px; font-size: 13px; color: #00bfff; }
+      .loading { text-align: center; padding: 40px; color: #8a2be2; font-size: 18px; }
+       /* CHECKBOX INU MATHRAM KODUTHA CSS */
+      .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+      .step-checkbox { width: 22px; height: 22px; accent-color: #00bfff; cursor: pointer; }
+      .completed h4 { text-decoration: line-through; opacity: 0.6; }
+      .completed { border-left-color: #00ff88; }
     </style>
 </head>
 <body>
@@ -120,23 +120,17 @@
             window.location.href = 'login.html';
         }
 
-        // PUTHIYA FUNCTION - CHECKBOX LOGIC
         function toggleStep(goal, stepId) {
             const key = `skillnova_${goal}_completed`;
             let completedSteps = JSON.parse(localStorage.getItem(key)) || [];
-            
+
             if (completedSteps.includes(stepId)) {
-                completedSteps = completedSteps.filter(id => id !== stepId);
+                completedSteps = completedSteps.filter(id => id!== stepId);
             } else {
                 completedSteps.push(stepId);
             }
             localStorage.setItem(key, JSON.stringify(completedSteps));
-            updateCheckboxStyle(goal, stepId);
-        }
 
-        function updateCheckboxStyle(goal, stepId) {
-            const key = `skillnova_${goal}_completed`;
-            const completedSteps = JSON.parse(localStorage.getItem(key)) || [];
             const stepElement = document.querySelector(`[data-goal="${goal}"][data-step="${stepId}"]`);
             if (stepElement) {
                 if (completedSteps.includes(stepId)) {
@@ -152,20 +146,20 @@
             const stepsContainer = document.getElementById('roadmapSteps');
             const key = `skillnova_${goal}_completed`;
             const completedSteps = JSON.parse(localStorage.getItem(key)) || [];
-            
+
             stepsContainer.innerHTML = '<div class="loading">Generating your roadmap... 🚀</div>';
-            
+
             setTimeout(() => {
                 const selectedRoadmap = roadmaps[goal];
                 stepsContainer.innerHTML = '';
-                
+
                 selectedRoadmap.forEach((item, index) => {
                     setTimeout(() => {
                         const isCompleted = completedSteps.includes(item.step);
                         const stepHTML = `
-                            <div class="roadmap-step ${isCompleted ? 'completed' : ''}" data-goal="${goal}" data-step="${item.step}">
+                            <div class="roadmap-step ${isCompleted? 'completed' : ''}" data-goal="${goal}" data-step="${item.step}">
                                 <div class="step-header">
-                                    <input type="checkbox" class="step-checkbox" ${isCompleted ? 'checked' : ''} 
+                                    <input type="checkbox" class="step-checkbox" ${isCompleted? 'checked' : ''}
                                            onchange="toggleStep('${goal}', ${item.step})">
                                     <span class="step-tag">STEP ${item.step}</span>
                                 </div>

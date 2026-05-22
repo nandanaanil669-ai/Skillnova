@@ -35,6 +35,10 @@
   .progress-fill { height: 100%; background: linear-gradient(90deg, #00bfff 0%, #0099ff 100%); transition: width 0.5s ease; }
   .progress-text { font-size: 14px; color: #7a8699; text-align: right; }
   .empty-state { text-align: center; padding: 60px 20px; color: #7a8699; }
+  .roadmap-list { margin-top: 16px; }
+  .roadmap-item { background: #0f0f1a; border: 1px solid #2a2a4e; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .roadmap-name { font-weight: 600; }
+  .roadmap-percent { color: #00bfff; font-weight: 700; }
     @media (max-width: 768px) {.nav-links { display: none; }.charts-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -100,8 +104,9 @@
     </div>
 
     <div class="chart-card" style="margin-top: 24px;">
-      <h3 class="chart-title">Current Roadmap Progress</h3>
+      <h3 class="chart-title">All Roadmaps Progress</h3>
       <div id="roadmapProgress"></div>
+      <div id="roadmapList" class="roadmap-list"></div>
     </div>
   </div>
 
@@ -117,83 +122,128 @@
       window.location.href = 'home.html';
     }
 
-    // Load data from localStorage
-    const addedSkills = JSON.parse(localStorage.getItem('addedSkills')) || [];
-    const currentGoal = 'frontend'; // Based on your screenshot
-    const completedSteps = JSON.parse(localStorage.getItem('completedSteps_' + currentGoal)) || [];
-    const totalSteps = 5; // Frontend has 5 steps
+    // ROADMAP DATA - NINTE ROADMAP.HTML IL ULLA STEPS
+    const roadmaps = {
+      frontend: { name: "Frontend Developer", total: 4 },
+      backend: { name: "Backend Developer", total: 4 },
+      fullstack: { name: "Full Stack Developer", total: 4 },
+      datascience: { name: "Data Scientist", total: 4 },
+      uiux: { name: "UI/UX Designer", total: 4 }
+    };
 
-    // Update stats
-    document.getElementById('skillsCount').textContent = addedSkills.length;
-    document.getElementById('stepsCompleted').textContent = completedSteps.length;
+    function loadProgress() {
+      // 1. Skills count
+      const addedSkills = JSON.parse(localStorage.getItem('addedSkills')) || [];
+      document.getElementById('skillsCount').textContent = addedSkills.length;
 
-    const progressPercent = Math.round((completedSteps.length / totalSteps) * 100);
-    document.getElementById('overallProgress').textContent = progressPercent + '%';
+      // 2. Calculate completed steps for all goals
+      let totalCompleted = 0;
+      let totalStepsAll = 0;
+      let roadmapHTML = '';
 
-    // Days active
-    const joinDate = localStorage.getItem('joinDate') || new Date().toISOString();
-    if (!localStorage.getItem('joinDate')) localStorage.setItem('joinDate', joinDate);
-    const daysActive = Math.max(1, Math.ceil((new Date() - new Date(joinDate)) / (1000 * 60 * 60 * 24)));
-    document.getElementById('daysActive').textContent = daysActive;
+      Object.keys(roadmaps).forEach(goal => {
+        const key = `skillnova_${goal}_completed`;
+        const completed = JSON.parse(localStorage.getItem(key)) || [];
+        const total = roadmaps[goal].total;
+        totalCompleted += completed.length;
+        totalStepsAll += total;
 
-    // Progress Chart - Doughnut
-    new Chart(document.getElementById('progressChart'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Completed', 'Remaining'],
-        datasets: [{
-          data: [completedSteps.length, totalSteps - completedSteps.length],
-          backgroundColor: ['#00bfff', '#1f2937'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        plugins: {
-          legend: { labels: { color: '#7a8699' } }
+        if (completed.length > 0) {
+          const percent = Math.round((completed.length / total) * 100);
+          roadmapHTML += `
+            <div class="roadmap-item">
+              <span class="roadmap-name">${roadmaps[goal].name}</span>
+              <span class="roadmap-percent">${completed.length}/${total} - ${percent}%</span>
+            </div>
+          `;
         }
-      }
-    });
+      });
 
-    // Skills Chart - Bar
-    const skillCategories = {};
-    addedSkills.forEach(skill => {
-      const category = skill.includes('JS') || skill.includes('HTML') || skill.includes('CSS') || skill.includes('React')? 'Frontend' :
-                      skill.includes('Node') || skill.includes('Mongo') || skill.includes('SQL') || skill.includes('Express')? 'Backend' : 'Other';
-      skillCategories[category] = (skillCategories[category] || 0) + 1;
-    });
+      document.getElementById('stepsCompleted').textContent = totalCompleted;
 
-    new Chart(document.getElementById('skillsChart'), {
-      type: 'bar',
-      data: {
-        labels: Object.keys(skillCategories),
-        datasets: [{
-          label: 'Skills',
-          data: Object.values(skillCategories),
-          backgroundColor: '#00bfff',
-          borderRadius: 8
-        }]
-      },
-      options: {
-        scales: {
-          y: { ticks: { color: '#7a8699' }, grid: { color: '#1f2937' } },
-          x: { ticks: { color: '#7a8699' }, grid: { display: false } }
+      // 3. Overall Progress
+      const progressPercent = totalStepsAll > 0 ? Math.round((totalCompleted / totalStepsAll) * 100) : 0;
+      document.getElementById('overallProgress').textContent = progressPercent + '%';
+
+      // 4. Days active
+      const joinDate = localStorage.getItem('joinDate') || new Date().toISOString();
+      if (!localStorage.getItem('joinDate')) localStorage.setItem('joinDate', joinDate);
+      const daysActive = Math.max(1, Math.ceil((new Date() - new Date(joinDate)) / (1000 * 60 * 60 * 24)));
+      document.getElementById('daysActive').textContent = daysActive;
+
+      // 5. Progress Chart
+      const ctx1 = document.getElementById('progressChart');
+      if (window.progressChartInstance) window.progressChartInstance.destroy();
+      window.progressChartInstance = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+          labels: ['Completed', 'Remaining'],
+          datasets: [{
+            data: [totalCompleted, totalStepsAll - totalCompleted],
+            backgroundColor: ['#00bfff', '#1f2937'],
+            borderWidth: 0
+          }]
         },
-        plugins: { legend: { display: false } }
-      }
-    });
+        options: {
+          plugins: {
+            legend: { labels: { color: '#7a8699' } }
+          }
+        }
+      });
 
-    // Roadmap Progress Bar
-    const roadmapDiv = document.getElementById('roadmapProgress');
-    if (completedSteps.length === 0) {
-      roadmapDiv.innerHTML = '<div class="empty-state">No roadmap started yet. Go to Roadmap page to begin!</div>';
-    } else {
-      roadmapDiv.innerHTML = `
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: ${progressPercent}%"></div>
-        </div>
-        <div class="progress-text">${completedSteps.length} of ${totalSteps} steps completed - ${progressPercent}%</div>
-      `;
+      // 6. Skills Chart
+      const skillCategories = {};
+      addedSkills.forEach(skill => {
+        const category = skill.includes('JS') || skill.includes('HTML') || skill.includes('CSS') || skill.includes('React')? 'Frontend' :
+                        skill.includes('Node') || skill.includes('Mongo') || skill.includes('SQL') || skill.includes('Express')? 'Backend' : 'Other';
+        skillCategories[category] = (skillCategories[category] || 0) + 1;
+      });
+
+      const ctx2 = document.getElementById('skillsChart');
+      if (window.skillsChartInstance) window.skillsChartInstance.destroy();
+      window.skillsChartInstance = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(skillCategories),
+          datasets: [{
+            label: 'Skills',
+            data: Object.values(skillCategories),
+            backgroundColor: '#00bfff',
+            borderRadius: 8
+          }]
+        },
+        options: {
+          scales: {
+            y: { ticks: { color: '#7a8699' }, grid: { color: '#1f2937' } },
+            x: { ticks: { color: '#7a8699' }, grid: { display: false } }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      // 7. Roadmap Progress Bar
+      const roadmapDiv = document.getElementById('roadmapProgress');
+      const roadmapList = document.getElementById('roadmapList');
+      
+      if (totalCompleted === 0) {
+        roadmapDiv.innerHTML = '<div class="empty-state">No roadmap started yet. Go to Roadmap page to begin!</div>';
+        roadmapList.innerHTML = '';
+      } else {
+        roadmapDiv.innerHTML = `
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${progressPercent}%"></div>
+          </div>
+          <div class="progress-text">${totalCompleted} of ${totalStepsAll} steps completed - ${progressPercent}%</div>
+        `;
+        roadmapList.innerHTML = roadmapHTML;
+      }
     }
+
+    // Load on page open
+    loadProgress();
+    
+    // Page il thirichu vannal update aavan
+    window.addEventListener('focus', loadProgress);
   </script>
 </body>
 </html>

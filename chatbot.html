@@ -1,82 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SkillBot - SkillNova</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; background: #0d1117; color: white; margin: 0; padding: 20px; }
-    .chat-box { max-width: 600px; margin: 0 auto; background: #161b22; border-radius: 12px; padding: 20px; }
-    .messages { height: 400px; overflow-y: auto; border: 1px solid #30363d; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
-    .msg { margin: 10px 0; }
-    .user { text-align: right; color: #00bfff; }
-    .bot { text-align: left; color: #7ee787; }
-    input { width: 70%; padding: 10px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; }
-    button { width: 25%; padding: 10px; background: #00bfff; border: none; border-radius: 8px; color: black; font-weight: bold; cursor: pointer; }
-    h2 { text-align: center; color: #00bfff; }
-    .loading { color: #8b949e; font-style: italic; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillNova Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        #chat-box::-webkit-scrollbar { width: 6px; }
+        #chat-box::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
+       .typing-indicator span {
+            height: 8px; width: 8px; background-color: #9ca3af;
+            border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both;
+        }
+       .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+       .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+    </style>
 </head>
-<body>
-  <div class="chat-box">
-    <h2>🤖 SkillBot - Your AI Career Assistant</h2>
-    <div class="messages" id="messages">
-      <div class="msg bot">Hi! I'm SkillBot powered by Gemini 👋 Ask me about careers, skills, MBTI, or salaries!</div>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-2xl h-[90vh] md:h-[80vh] flex flex-col bg-gray-800 rounded-2xl shadow-2xl border border-gray-700">
+
+        <div class="p-4 border-b border-gray-700 flex items-center space-x-3">
+            <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold text-white">SkillNova AI Assistant</h1>
+                <p class="text-sm text-green-400 flex items-center">
+                    <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>Online
+                </p>
+            </div>
+        </div>
+
+        <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-6">
+            <div class="flex justify-start">
+                <div class="bg-gray-700 p-3 rounded-lg max-w-xs md:max-w-md">
+                    <p class="text-sm">Hello Nandana! 👋 I'm your SkillNova AI Assistant. Ask me about tech careers, coding, salaries, or anything!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="typing-indicator" class="p-6 pt-0 hidden">
+             <div class="flex justify-start">
+                <div class="bg-gray-700 p-3 rounded-lg">
+                    <div class="typing-indicator"><span></span><span></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-700">
+            <form id="chat-form" class="flex items-center space-x-3">
+                <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" class="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-3 rounded-lg transition disabled:bg-indigo-400 disabled:cursor-not-allowed">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                </button>
+            </form>
+        </div>
     </div>
-    <input type="text" id="userInput" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMsg()">
-    <button onclick="sendMsg()">Send</button>
-  </div>
 
-  <script>
-    const messages = document.getElementById('messages');
-    const input = document.getElementById('userInput');
-    const API_URL = "https://v0-next-js-api-route-nine-alpha.vercel.app/api/chat";
-    
-    let chatHistory = [];
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const submitButton = chatForm.querySelector('button');
 
-    async function sendMsg() {
-      const text = input.value.trim();
-      if (!text) return;
-      
-      // Show user message
-      messages.innerHTML += `<div class="msg user">You: ${text}</div>`;
-      input.value = '';
-      messages.scrollTop = messages.scrollHeight;
-      
-      // Show loading
-      const loadingId = Date.now();
-      messages.innerHTML += `<div class="msg bot loading" id="${loadingId}">SkillBot is typing...</div>`;
-      messages.scrollTop = messages.scrollHeight;
-      
-      // Add to history
-      chatHistory.push({ role: "user", content: text });
+        // ✅ API KEY VERCEL IL SAFE AAYI IRUNNU EDUTHU
+        const API_URL = `/api/gemini`;
 
-      try {
-        // Call Gemini API via Vercel
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: chatHistory })
+        let conversationHistory = [];
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+
+            addMessageToChat(userMessage, 'user');
+            userInput.value = '';
+            toggleLoading(true);
+
+            conversationHistory.push({
+                role: 'user',
+                parts: [{ text: userMessage }]
+            });
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: conversationHistory
+                    })
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+                const data = await response.json();
+                const botMessage = data.candidates[0].content.parts[0].text;
+
+                conversationHistory.push({
+                    role: 'model',
+                    parts: [{ text: botMessage }]
+                });
+
+                addMessageToChat(botMessage, 'bot');
+
+            } catch (error) {
+                console.error('Error:', error);
+                addMessageToChat('Sorry, something went wrong. Please try again later.', 'bot');
+            } finally {
+                toggleLoading(false);
+            }
         });
 
-        if (!response.ok) throw new Error('API Error');
-        
-        const data = await response.json();
-        const reply = data.text || "Sorry, I couldn't process that. Try again!";
-        
-        // Remove loading and show reply
-        document.getElementById(loadingId).remove();
-        messages.innerHTML += `<div class="msg bot">SkillBot: ${reply}</div>`;
-        
-        // Add to history
-        chatHistory.push({ role: "model", content: reply });
-        
-      } catch (error) {
-        document.getElementById(loadingId).remove();
-        messages.innerHTML += `<div class="msg bot">SkillBot: Sorry, connection error. Please try again later! 😢</div>`;
-      }
-      
-      messages.scrollTop = messages.scrollHeight;
-    }
-  </script>
+        function addMessageToChat(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('flex', sender === 'user'? 'justify-end' : 'justify-start');
+
+            const bubble = document.createElement('div');
+            bubble.classList.add('p-3', 'rounded-lg', 'max-w-xs', 'md:max-w-md');
+            bubble.classList.add(sender === 'user'? 'bg-indigo-600' : 'bg-gray-700');
+
+            const text = document.createElement('p');
+            text.classList.add('text-sm');
+            text.innerHTML = message.replace(/\n/g, '<br>');
+
+            bubble.appendChild(text);
+            messageElement.appendChild(bubble);
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function toggleLoading(isLoading) {
+            if (isLoading) {
+                typingIndicator.classList.remove('hidden');
+                submitButton.disabled = true;
+            } else {
+                typingIndicator.classList.add('hidden');
+                submitButton.disabled = false;
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
 </body>
 </html>
